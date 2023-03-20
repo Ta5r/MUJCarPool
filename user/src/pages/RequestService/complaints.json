@@ -1,0 +1,220 @@
+[
+  {
+    "complaint": "CIVIL",
+    "subcats": [
+      {
+        "name": "carpenter for repair of doors/window",
+        "code": "SSE"
+      },
+      {
+        "name": "cleaning of overhead tank",
+        "code": "JE"
+      },
+      {
+        "name": "fencing repair working",
+        "code": "JE"
+      },
+      {
+        "name": "fitter for repairs to fencing for boundary wall gate",
+        "code": "JE"
+      },
+      {
+        "name": "mason for repair to floor, plaster brock work,drain,etc.",
+        "code": "JE"
+      },
+      {
+        "name": "painter for writing work of nameplate",
+        "code": "SSE"
+      },
+      {
+        "name": "plumber for repair work of pipelines and sanitary fittings",
+        "code": "SSE"
+      },
+      {
+        "name": "toilet/drain pipe choking",
+        "code": "JE"
+      },
+      {
+        "name": "distempering/ white washing",
+        "code": "SSE"
+      },
+      {
+        "name": "sanitation works",
+        "code": "JE"
+      },
+      {
+        "name": "choking of sewer lines/man holes",
+        "code": "SSE"
+      },
+      {
+        "name": "choking of toilet and bathroom drains",
+        "code": "JE"
+      },
+      {
+        "name": "horticulture work",
+        "code": "JE"
+      }
+    ]
+  },
+  {
+    "complaint": "ELECTRICAL",
+    "subcats": [
+      {
+        "name": "AC service line",
+        "code": "SSE"
+      },
+      {
+        "name": "call service",
+        "code": "JE"
+      },
+      {
+        "name": "board distortion",
+        "code": "SSE"
+      },
+      {
+        "name": "ceiling fan",
+        "code": "JE"
+      },
+      {
+        "name": "earthing fan",
+        "code": "SSE"
+      },
+      {
+        "name": "geyser",
+        "code": "JE"
+      },
+      {
+        "name": "loose connection",
+        "code": "JE"
+      },
+      {
+        "name": "main switch /db/ wiring",
+        "code": "JE"
+      },
+      {
+        "name": "no light / pole fault",
+        "code": "JE"
+      },
+      {
+        "name": "miscellaneous",
+        "code": "SSE"
+      },
+      {
+        "name": "street lighting",
+        "code": "JE"
+      },
+      {
+        "name": "t-8 40w tubelight",
+        "code": "JE"
+      },
+      {
+        "name": "meter related problem",
+        "code": "JE"
+      },
+      {
+        "name": "problem in desert cooler",
+        "code": "SSE"
+      },
+      {
+        "name": "problem in hs pump",
+        "code": "JE"
+      },
+      {
+        "name": "problem in room heater",
+        "code": "JE"
+      },
+      {
+        "name": "problem in split AC",
+        "code": "SSE"
+      },
+      {
+        "name": "problem in window AC",
+        "code": "JE"
+      },
+      {
+        "name": "problem in water cooler",
+        "code": "JE"
+      }
+    ]
+  },
+  {
+    "complaint": "TELECOM",
+    "country_code": "ae",
+    "url": "google.ae",
+    "subcats": [
+      {
+        "name": "BSNL telephone related problem",
+        "code": "JE"
+      },
+      {
+        "name": "DG Intercom related problem",
+        "code": "SSE"
+      },
+      {
+        "name": "Dialing Problem",
+        "code": "SSE"
+      },
+      {
+        "name": "Directorate Intercom related problem",
+        "code": "JE"
+      },
+      {
+        "name": "Display fault",
+        "code": "JE"
+      },
+      {
+        "name": "Getting wrong number",
+        "code": "JE"
+      },
+      {
+        "name": "Humming",
+        "code": "JE"
+      },
+      {
+        "name": "Low voice",
+        "code": "SSE"
+      },
+      {
+        "name": "Not ringing",
+        "code": "JE"
+      },
+      {
+        "name": "Shifting",
+        "code": "SSE"
+      },
+      {
+        "name": "Telephone dead",
+        "code": "JE"
+      },
+      {
+        "name": "Wiring",
+        "code": "JE"
+      }
+    ]
+  },
+  {
+    "complaint": "INTERNET",
+    "subcats": [
+      {
+        "name": "ADSL/Broad band",
+        "code": "SSE"
+      },
+      {
+        "name": "Biometric Device related problem",
+        "code": "JE"
+      },
+      {
+        "name": "Internet not working",
+        "code": "SSE"
+      },
+      {
+        "name": "Intranet not working",
+        "code": "JE"
+      },
+      {
+        "name": "Network Problem",
+        "code": "JE"
+      }
+    ]
+  }
+]

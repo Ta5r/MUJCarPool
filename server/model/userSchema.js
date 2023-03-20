@@ -44,21 +44,21 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
 
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  // tokens: [
+  //   {
+  //     token: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //   },
+  // ],
 });
 
 userSchema.methods.generateAuthToken = async function () {
   try {
     let token = jwt.sign({ UID: this.UID }, SECRET_KEY);
-    this.tokens = this.tokens.concat({ token: token });
-    await this.save();
+    // this.tokens = this.tokens.concat({ token: token });
+    // await this.save();
     console.log("userSchema/generateAuthToken : " + token);
     return token;
   } catch (err) {

@@ -88,7 +88,7 @@ router.post("/user/login", async (req, res) => {
         token = await user.generateAuthToken();
         console.log("Tokenn /routes/ -> " + token);
         console.log(user);
-        res.send({ user, token });
+        res.status(200).send({ user, token });
       } else {
         console.log("Wrong Password");
         res.status(401).send("Wrong Password");
@@ -104,7 +104,7 @@ router.post("/user/login", async (req, res) => {
 router.post("/user/register", async (req, res) => {
   const { UID, user_type, fname, lname, email, designation, phone, password } =
     req.body;
-
+console.log(req.body);
   try {
     const user = new User({
       UID,
@@ -118,15 +118,15 @@ router.post("/user/register", async (req, res) => {
     });
     await user.save();
     console.log(user);
-    res.send("USER registered successfully");
+    res.status(201).send("USER registered successfully");
   } catch (error) {
     console.log(error);
   }
 });
 
 router.post("/add/ride", async (req, res) => {
+  console.log(req.body);
   const { PublisherID, from, to, no_of_pass, doj, price } = req.body;
-
   try {
     const ride = new Ride({
       PublisherID,
