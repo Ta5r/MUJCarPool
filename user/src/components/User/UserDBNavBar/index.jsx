@@ -28,7 +28,7 @@ export default function UserDBNavbar(props) {
   const handleLogout = async event => {
     console.log('Loggin user out');
     localStorage.setItem('tokenID', '');
-    localStorage.setItem('AdminTokenID', '');
+    // localStorage.setItem('AdminTokenID', '');
 
     setTimeout(() => {
       navigate('/');
@@ -48,7 +48,7 @@ export default function UserDBNavbar(props) {
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box>
-              <Link href="">
+              <Link href="/user/dashboard">
                 <Text
                   fontWeight={'bold'}
                   fontFamily={'heading'}
@@ -63,8 +63,8 @@ export default function UserDBNavbar(props) {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}
             >
-              <Link href="/user/dashboard/request">Make Service Request</Link>
-              <Link href="/user/dashboard/status">Complaint Status</Link>
+              <Link href="/user/dashboard/publish">Publish a Ride</Link>
+              <Link href="/user/dashboard/search">Browse Rides</Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -79,7 +79,8 @@ export default function UserDBNavbar(props) {
                 <Avatar
                   size={'sm'}
                   src={
-                    'https://i.pinimg.com/736x/6a/72/4b/6a724b9501764fd83a4abcd37b58144d.jpg'
+                    'https://avatars.githubusercontent.com/u/10548085?v=4'
+                    // 'https://i.pinimg.com/736x/6a/72/4b/6a724b9501764fd83a4abcd37b58144d.jpg'
                   }
                 />
               </MenuButton>

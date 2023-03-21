@@ -19,14 +19,14 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FadeInUp from '../../components/Animation/FadeInUp';
 
-export default function LoginUser() {
+export default function Login() {
   const navigate = useNavigate();
-  const [EID, setEID] = useState('');
+  const [UID, setUID] = useState('');
   const [password, setpassword] = useState('');
   const [msg, setmsg] = useState('Please fill in your credentials');
   const [token, setToken] = useState('');
-  const [stat, setStat] = useState('Sign in');
-  const handleEIDChange = e => setEID(e.target.value);
+  const [status, setStatus] = useState('Sign in');
+  const handleUIDChange = e => setUID(e.target.value);
   const handlepasswordChange = e => setpassword(e.target.value);
 
   useEffect(() => {
@@ -35,12 +35,12 @@ export default function LoginUser() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(EID);
+    console.log(UID);
     console.log(password);
 
     try {
       let dat = await axios.post('http://localhost:8000/user/login', {
-        UID:EID,
+        UID:UID,
         password,
       });
       console.log('data : ' + dat.data);
@@ -52,18 +52,18 @@ export default function LoginUser() {
       console.log('status : ' + dat.status);
       if (dat.status === 200) {
         setmsg('SUCCEFULL SIGNIN !');
-        setStat('Signin successful');
+        setStatus('Signin successful');
         setTimeout(() => {
           navigate('/user/dashboard');
         }, 2000);
       } else {
-        setStat('Please Try Again');
+        setStatus('Please Try Again');
         setmsg('INCORRECT CREDENTIALS');
       }
     } catch (error) {
-      setStat('Please Try Again');
+      setStatus('Please Try Again');
       setTimeout(() => {
-        setStat('Sign in');
+        setStatus('Sign in');
         setmsg('Please fill in your credentials')
       }, 3000)
       console.log(error);
@@ -94,14 +94,14 @@ export default function LoginUser() {
             >
               <Stack spacing={4}>
                 <form onSubmit={handleSubmit}>
-                  <FormControl id="EID">
+                  <FormControl id="UID">
                     <FormLabel>Registration Number</FormLabel>
                     <Input
                     placeholder={"Registration Number"}
-                      id="EID"
+                      id="UID"
                       type="text"
-                      value={EID}
-                      onChange={handleEIDChange}
+                      value={UID}
+                      onChange={handleUIDChange}
                     />
                   </FormControl>
                   <FormControl id="password">
@@ -131,7 +131,7 @@ export default function LoginUser() {
                       }}
                       type="submit"
                     >
-                      {stat}
+                      {status}
                     </Button>
                   </Stack>
                 </form>

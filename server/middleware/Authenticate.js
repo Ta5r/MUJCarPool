@@ -13,7 +13,7 @@ const Authenticate = async (req, res, next) => {
     console.log(verifyToken._id);
     console.log("was");
     const rootUser = await User.findOne({
-      UID: verifyToken.EID,
+      UID: verifyToken.UID,
       "tokens.token": token,
     });
     if (!rootUser) {

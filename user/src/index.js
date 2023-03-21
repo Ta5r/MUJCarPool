@@ -2,17 +2,13 @@ import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import App from './pages/App';
-import LoginUser from './pages/LGuser';
-import LoginAdmin from './pages/LGadmin';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import Footer from './components/layouts/Footer';
-import AdminDashboard from './pages/admin-dashboard';
-import RequestService from './pages/RequestService';
+import PublishRide from './pages/PublishRide';
 import UserDashBoard from './pages/UserDashBoard';
-import RequestStatus from './pages/RequestStatus';
-import Master from './pages/Master';
+import RidesSearch from './pages/RidesSearch';
 const container = document.getElementById('root');
-
-
 const root = ReactDOM.createRoot(container);
 
 const routing = (
@@ -20,33 +16,23 @@ const routing = (
     <div>
       <Routes>
         <Route path="/" component={App} element={<App />} exact />
-        <Route path="/signup" component={LoginAdmin} element={<LoginAdmin />} />
-        <Route
-          path="/admin/dashboard"
-          component={AdminDashboard}
-          element={<AdminDashboard />}
-        />
+        <Route path="/signup" component={Signup} element={<Signup />} />
 
-        <Route path="/user" component={LoginUser} element={<LoginUser />} />
+        <Route path="/user/login" component={Login} element={<Login />} />
         <Route
           path="/user/dashboard"
           component={UserDashBoard}
           element={<UserDashBoard />}
         />
         <Route
-          path="/user/dashboard/request"
-          component={RequestService}
-          element={<RequestService />}
+          path="/user/dashboard/publish"
+          component={PublishRide}
+          element={<PublishRide />}
         />
         <Route
-          path="/user/dashboard/status"
-          component={RequestStatus}
-          element={<RequestStatus />}
-        />
-        <Route
-          path="/master"
-          component={Master}
-          element={<Master />}
+          path="/user/dashboard/search"
+          component={RidesSearch}
+          element={<RidesSearch />}
         />
       </Routes>
     </div>

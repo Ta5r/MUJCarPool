@@ -19,7 +19,7 @@ import { useState, useEffect } from 'react';
 import UserDBNavBar from '../../components/User/UserDBNavBar';
 import FadeInUp from '../../components/Animation/FadeInUp';
 
-export default function ServiceRequest() {
+export default function PublishRide() {
   const navigate = useNavigate();
   const [publisherID, setPublisherID] = useState('');
   const [from, setFrom] = useState('');
@@ -60,11 +60,11 @@ export default function ServiceRequest() {
       console.log(dat);
       console.log('status : ' + dat.status);
       if (dat.status == 200) {
-        console.log('Service Request Successfully placed ');
-        setmsg('Service Request Successfully placed');
+        console.log('Ride Successfully placed ');
+        setmsg('Ride Successfully placed');
       } else {
-        setmsg("Couldn't place Service Request");
-        console.log("Couldn't place Service Request");
+        setmsg("Couldn't place Ride");
+        console.log("Couldn't place Ride");
       }
     } catch (err) {
       console.log(err);
@@ -103,7 +103,6 @@ export default function ServiceRequest() {
                       placeholder={'From'}
                       id="from"
                       type="text"
-                      // value={from}
                       onChange={handleFromChange}
                     />
 
@@ -112,7 +111,6 @@ export default function ServiceRequest() {
                       placeholder={'To'}
                       id="to"
                       type="text"
-                      // value={to}
                       onChange={handleToChange}
                     />
 
@@ -121,7 +119,6 @@ export default function ServiceRequest() {
                       placeholder={'Date of Journey'}
                       id="doj"
                       type="text"
-                      // value={doj}
                       onChange={handleDojChange}
                     />
 
@@ -130,7 +127,6 @@ export default function ServiceRequest() {
                       placeholder={'Number of co-passengers'}
                       id="no"
                       type="text"
-                      // value={no}
                       onChange={handleNopChange}
                     />
 
@@ -139,7 +135,6 @@ export default function ServiceRequest() {
                       placeholder={'Price per head'}
                       id="price"
                       type="text"
-                      // value={price}
                       onChange={handlePriceChange}
                     />
                   </FormControl>

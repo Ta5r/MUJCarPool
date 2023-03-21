@@ -1,10 +1,10 @@
 import React from 'react';
-import RequestStatus from '../../pages/RequestStatus';
+import MyRides from '../MyRides';
 import jwt from "jwt-decode";
 import { useState, useEffect } from 'react';
 
 const UserDashBoard = () => {
-  const [S_EID, setEID] = useState('');
+  const [S_UID, setUID] = useState('');
 
   useEffect(() => {
     var x = localStorage.getItem('tokenID');
@@ -15,7 +15,7 @@ const UserDashBoard = () => {
 
     try {
       console.log('userdahboard token read from localStorage : ' + x);
-      fetch('/user/dashboard/requestform', {
+      fetch('/user/dashboard/', {
         method: 'GET',
         headers: {
           token: x,
@@ -26,7 +26,7 @@ const UserDashBoard = () => {
       }).then(response => {
         response.json().then(response => {
           console.log(response);
-          setEID(response.EID);
+          setUID(response.EID);
         });
       });
     } catch (err) {
@@ -37,7 +37,7 @@ const UserDashBoard = () => {
 
   return (
     <div>
-      <RequestStatus eid={S_EID} />
+      <MyRides uid={S_UID} />
     </div>
   );
 };

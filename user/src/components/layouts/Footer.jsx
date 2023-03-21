@@ -9,7 +9,7 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-import { FaInstagram, FaGoogle, FaGithub } from 'react-icons/fa';
+import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { ReactNode } from 'react';
 
 const SocialButton = ({
@@ -64,19 +64,13 @@ export default function Footer() {
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}
         >
-          <Text>© 2022 Tanay Srivastava. All rights reserved</Text>
+          <Text>© 2023 Manipal University Jaipur. All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
             <SocialButton label={'Gmail'} href={'mailto:srv.tanay@gmail.com'}>
               <FaGoogle />
             </SocialButton>
-            <SocialButton label={'GitHub'} href={'https://www.github.com/Ta5r'}>
+            <SocialButton label={'GitHub'} href={'https://github.com/Ta5r/MUJCarPool'}>
               <FaGithub />
-            </SocialButton>
-            <SocialButton
-              label={'Instagram'}
-              href={'https://www.instagram.com/tanay.srv/'}
-            >
-              <FaInstagram />
             </SocialButton>
           </Stack>
         </Container>

@@ -36,7 +36,7 @@ function App() {
                 </Text>
                 <br />{' '}
                 <Text color={'orange.400'} as={'span'}>
-                  SERVICE REQUEST
+                  Travel Buddy
                 </Text>{' '}
               </Heading>
               <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
@@ -45,7 +45,7 @@ function App() {
                 co-passengers for the go.
               </Text>
               <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-                <Link href="/user">
+                <Link href="/user/login">
                   <Button
                     rounded={'full'}
                     bg={'orange.400'}
@@ -57,15 +57,15 @@ function App() {
                     Login
                   </Button>
                 </Link>
-                <Link href="/master">
-                  <Button rounded={'full'}>Master</Button>
+                <Link href="/signup">
+                  <Button rounded={'full'}>Sign-Up</Button>
                 </Link>
               </Stack>
             </Stack>
           </Flex>
           <Flex flex={1}>
             <Image
-              alt={'IOW-IMAGE'}
+              alt={'MUJ-IMAGE'}
               objectFit={'cover'}
               h="100vh"
               w="50vw"

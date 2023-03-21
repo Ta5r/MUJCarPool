@@ -18,12 +18,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FadeInUp from '../../components/Animation/FadeInUp';
 
-export default function LoginAdmin() {
+export default function Signup() {
   const navigate = useNavigate();
   const [token, setToken] = useState('');
 
   useEffect(() => {
-    localStorage.setItem('AdminTokenID', token);
+    localStorage.setItem('tokenID', token);
   }, [token]);
 
   const [msg, setmsg] = useState('Please fill in the following details');
@@ -72,11 +72,14 @@ export default function LoginAdmin() {
       });
 
       if (dat.status === 201) {
+        // setToken();
+        console.log(dat);
         setmsg('Successful Registration');
         setStat('Registered');
         setTimeout(() => {
           setStat('Register User');
         }, 2000);
+        navigate('/user/login');
       } else {
         setStat('Registration Failed');
         setmsg('Registration Failed');
