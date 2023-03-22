@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import UserDBNavBar from '../../components/User/UserDBNavBar';
 import { Button, Text, ChakraProvider, theme } from '@chakra-ui/react';
-import RideCard from '../../components/User/RideCard';
+// import RideCard from '../../components/User/RideCard';
+import MyRide from '../../components/User/MyRide';
 
 const RidesSearch = props => {
   const eid = props.uid;
@@ -57,8 +58,8 @@ const RidesSearch = props => {
         My Ongoing Rides
       </Text>
       {allRides.map(res =>
-        // res.status.toLowerCase() == 'pending' ? (
-          <RideCard
+        // res.publisherID != S_EID ? (
+          <MyRide
             from={res.from}
             to={res.to}
             doj={res.doj}

@@ -157,4 +157,17 @@ router.get("/user/dashboard", authenticate, function (req, res) {
   res.send(req.rootUser);
 });
 
+router.get("/user/data/:UID", async (req, res) => {
+  const UID = req.params.UID;
+  try
+  {
+    const data = await User.findOne({UID});
+    res.send(data);
+  }
+  catch(err)
+  {
+    console.log(err);
+  }
+})
+
 export default router;

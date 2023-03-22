@@ -56,16 +56,19 @@ const RidesSearch = props => {
       <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
         Browse Ongoing Rides
       </Text>
-      {allRides.map(res =>
-        // res.status.toLowerCase() == 'pending' ? (
+      {allRides.map(
+        res => (
+          // res.status.toLowerCase() == 'pending' ? (
           <RideCard
-            from={res.from}
             to={res.to}
+            from={res.from}
             doj={res.doj}
-            nop = {res.no_of_pass}
+            nop={res.no_of_pass}
             price={res.price}
             rideID={res._id}
+            pid={res.PublisherID}
           />
+        )
         // ) : null
       )}
 
