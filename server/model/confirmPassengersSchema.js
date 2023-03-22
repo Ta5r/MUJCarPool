@@ -1,9 +1,5 @@
 import mongoose from "mongoose";
-const rideSchema = new mongoose.Schema({
-  // RID: {
-  //   type: Number,
-  //   required: true,
-  // },
+const confirmPassengersSchema = new mongoose.Schema({
   PublisherID: {
     type: String,
     required: true,
@@ -30,6 +26,6 @@ const rideSchema = new mongoose.Schema({
   }
 });
 
-const Ride = mongoose.model("RIDE", rideSchema);
+const Passenger = mongoose.model("PASSENGER", confirmPassengersSchema);
 
-export default Ride;
+export default Passenger;

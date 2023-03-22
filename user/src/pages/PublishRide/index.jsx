@@ -16,7 +16,7 @@ import axios from 'axios';
 import jwt from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import UserDBNavBar from '../../components/User/UserDBNavBar';
+import Navbar from '../../components/User/Navbar';
 import FadeInUp from '../../components/Animation/FadeInUp';
 
 export default function PublishRide() {
@@ -28,21 +28,43 @@ export default function PublishRide() {
   const [doj, setDoj] = useState('');
   const [price, setPrice] = useState('');
   const [msg, setmsg] = useState('Please fill the following details');
-  
+
   const handleFromChange = e => setFrom(e.target.value);
   const handleToChange = e => setTo(e.target.value);
   const handleNopChange = e => setNop(e.target.value);
   const handleDojChange = e => setDoj(e.target.value);
   const handlePriceChange = e => setPrice(e.target.value);
 
+  const [S_fname, setFName] = useState('');
+  const [S_lname, setLName] = useState('');
+  const [S_email, setEmail] = useState('');
+  const [S_phone, setPhone] = useState('');
+
   useEffect(() => {
-    //Runs only on the first render
-    var x = localStorage.getItem('tokenID');
-    const user = jwt(x);
-    console.log(user);
-    setPublisherID(user['UID']);
+    try {
+      fetch('/user/dashboard/', {
+        method: 'GET',
+        headers: {
+          token: localStorage.getItem('tokenID'),
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      }).then(response => {
+        response.json().then(response => {
+          console.log(response);
+          setPublisherID(response.UID);
+          setFName(response.fname);
+          setLName(response.lname);
+          setEmail(response.email);
+          setPhone(response.phone);
+        });
+      });
+    } catch (err) {
+      console.log('Error occured ');
+      console.log(err);
+    }
   }, []);
-  console.log(publisherID);
   const navigato_UDB = async event => {
     navigate('/user/dashboard');
   };
@@ -62,6 +84,7 @@ export default function PublishRide() {
       if (dat.status == 200) {
         console.log('Ride Successfully placed ');
         setmsg('Ride Successfully placed');
+        setTimeout(navigato_UDB(), 1000);
       } else {
         setmsg("Couldn't place Ride");
         console.log("Couldn't place Ride");
@@ -73,8 +96,13 @@ export default function PublishRide() {
 
   return (
     <ChakraProvider theme={theme}>
-      <UserDBNavBar />
-      {/* <UserDBNavBar name={S_name} /> */}
+      <Navbar
+        eid={publisherID}
+        name={S_fname}
+        lname={S_lname}
+        email={S_email}
+        phone={S_phone}
+      />
       <FadeInUp>
         <Flex
           minH={'93vh'}
@@ -100,7 +128,7 @@ export default function PublishRide() {
                   <FormControl id="publish_ride">
                     <FormLabel>From</FormLabel>
                     <Input
-                      placeholder={'From'}
+                      placeholder={'Enter a pick-up point'}
                       id="from"
                       type="text"
                       onChange={handleFromChange}
@@ -108,7 +136,7 @@ export default function PublishRide() {
 
                     <FormLabel>To</FormLabel>
                     <Input
-                      placeholder={'To'}
+                      placeholder={'Enter a drop point'}
                       id="to"
                       type="text"
                       onChange={handleToChange}
@@ -138,6 +166,7 @@ export default function PublishRide() {
                       onChange={handlePriceChange}
                     />
                   </FormControl>
+                  <br />
                   <Stack spacing={10}>
                     <Button
                       bg={'blue.400'}
@@ -153,7 +182,7 @@ export default function PublishRide() {
                   </Stack>
                 </form>
                 <Stack spacing={10}>
-                  <Button
+                  {/* <Button
                     bg={'blue.400'}
                     color={'white'}
                     _hover={{
@@ -162,7 +191,7 @@ export default function PublishRide() {
                     onClick={navigato_UDB}
                   >
                     Back to DashBoard
-                  </Button>
+                  </Button> */}
                 </Stack>
               </Stack>
             </Box>

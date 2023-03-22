@@ -20,15 +20,19 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 
-export default function UserDBNavbar(props) {
+export default function Navbar(props) {
+  const fname = props.name;
+  const lname = props.lname;
+  const email = props.email;
+  const phone = props.phone;
+  console.log(props.eid);
+  console.log(props.name);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const name = props.name;
   const navigate = useNavigate();
 
   const handleLogout = async event => {
     console.log('Loggin user out');
     localStorage.setItem('tokenID', '');
-    // localStorage.setItem('AdminTokenID', '');
 
     setTimeout(() => {
       navigate('/');
@@ -54,7 +58,7 @@ export default function UserDBNavbar(props) {
                   fontFamily={'heading'}
                   color={useColorModeValue('gray.800', 'white')}
                 >
-                  {name}
+                  My Rides
                 </Text>
               </Link>
             </Box>
@@ -78,13 +82,20 @@ export default function UserDBNavbar(props) {
               >
                 <Avatar
                   size={'sm'}
-                  src={
-                    'https://avatars.githubusercontent.com/u/10548085?v=4'
-                    // 'https://i.pinimg.com/736x/6a/72/4b/6a724b9501764fd83a4abcd37b58144d.jpg'
-                  }
+                  src={'https://avatars.githubusercontent.com/u/10548085?v=4'}
                 />
               </MenuButton>
               <MenuList>
+                <Text
+                  fontSize={'23px'}
+                  fontWeight={'bold'}
+                  px={'10px'}
+                  py={'5px'}
+                  pb={'15px'}
+                >
+                  {fname} {lname}
+                  <br />
+                </Text>
                 <Text
                   fontSize={'18px'}
                   fontWeight={'bold'}
@@ -92,10 +103,10 @@ export default function UserDBNavbar(props) {
                   py={'5px'}
                   pb={'15px'}
                 >
-                  {name}
-                  <br />
+                  {email}
+                  <br/>
+                  +91 {phone}
                 </Text>
-                {/* <MenuItem>Edit Profile</MenuItem> */}
                 <MenuDivider />
                 <MenuItem onClick={handleLogout}>Log Out </MenuItem>
               </MenuList>
