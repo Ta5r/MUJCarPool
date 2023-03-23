@@ -7,70 +7,58 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  HStack,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import axios from 'axios';
-import { Grid, GridItem } from '@chakra-ui/react';
-import { Text, Link, Box } from '@chakra-ui/react';
-
 import React from 'react';
-import { BiPhoneCall } from 'react-icons/bi';
-import { GrUserWorker } from 'react-icons/gr';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+const Reqs = props => {
+  const name = props.rn;
+  const RideID = props.riid;
+  const requestID = props.reid;
+  console.log(name);
+  // const onAccept = () => {console.log("Accepted");};
+  // const onReject = () => {console.log("Rejected");};
+
+  // return (
+  //   <>
+  //     <HStack>
+  //       <Text>{name}</Text>
+  //       <Button colorScheme="blue" mr={3} onClick={onAccept}>
+  //         Accept
+  //       </Button>
+  //       <Button colorScheme="blue" mr={3} onClick={onReject}>
+  //         Reject
+  //       </Button>
+  //     </HStack>
+  //   </>
+  // );
+};
 
 const ModalBox = props => {
-  const completedTime = props.completedTime;
-  const timestamp = props.timestamp.slice(0, 25);
-  const timestamp2 = new Date(props.timestamp);
-  const completeTime = new Date(props.completedTime);
-  const cid = props.cID;
-  const [msg, setMsg] = useState(props.status);
+  const RideID = props.rideID;
+  const [reqs, setReqs] = useState();
 
-  const removeReq = async () => {
-    console.log("To Remove"+cid);
+  useEffect(async () => {
     try {
-      let dat = await axios.post('http://localhost:8000/remove', {
-        cid
-      });
+      let dat = await axios.get(
+        `http://localhost:8000/ride/request/show/${RideID}`
+      );
+      console.log('==================================');
       console.log(dat.data);
-      if(dat.status=== 200){
-        setMsg("Removed");
-      }
-      else{
-        setMsg("urrghh");
-      }
+      setReqs(dat.data);
+      console.log('==================================');
     } catch (err) {
       console.log('Error occured ');
       console.log(err);
     }
-  }
-
-  const diff_days = Math.floor(
-    (completeTime.getTime() - timestamp2.getTime()) / (1000 * 3600 * 24)
-  );
-  const diff_hours = Math.floor(
-    (completeTime.getTime() - timestamp2.getTime()) / (1000 * 3600)
-  );
-  const diff_mins = Math.floor(
-    (completeTime.getTime() - timestamp2.getTime()) / (1000 * 60)
-  );
-
-  if (diff_days !== 0) {
-    console.log(diff_days + ' days');
-  } else if (diff_hours === 0) {
-    console.log(diff_mins + ' mins');
-  } else {
-    console.log(diff_hours + ' hours');
-  }
-
-  const description = props.description;
-  const category = props.category;
-  const subcategory = props.subcategory;
-  const OTP = props.OTP;
-  const phone = props.phone;
-  const status = props.status;
-  const name = 'Mr. ' + props.name;
-  const status_color = status === 'COMPLETED' ? 'blue.200' : 'yellow.300';
+  }, []);
+  console.log('11111111111111111111111111111111111111111');
+  console.log(reqs);
+  console.log('11111111111111111111111111111111111111111');
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -85,116 +73,30 @@ const ModalBox = props => {
         />
         <ModalContent>
           <ModalHeader bg={'#e6e7e8'} fontSize="20px" borderTopRadius={'10px'}>
-            {category} - {subcategory}
+            Pending Ride Requests
           </ModalHeader>
           <ModalCloseButton />
+          {/*  */}
           <ModalBody>
-            <Text fontWeight={'bold'} fontSize="18px" my="1rem">
-              Description
-            </Text>
-            <Text pb={'4rem'}>{description}</Text>
-
-            <Grid templateColumns="repeat(2, 1fr)" gap={2} py={'2rem'}>
-              <GridItem w="100%" h="10">
-                <Text fontWeight={'bold'}>Placed At</Text>
-                <br />
-                {timestamp}
-              </GridItem>
-              <GridItem w="100%" h="10">
-                <Text fontWeight={'bold'}>Completed At</Text>
-                <br />
-                {completedTime ? (
-                  <Text>{completedTime}</Text>
-                ) : (
-                  <Text>Not yet completed</Text>
-                )}
-              </GridItem>
-            </Grid>
-
-            <Box
-              mt={'2rem'}
-              display={'flex'}
-              flexDirection={'row'}
-              fontSize={'18px'}
-              bgColor={'#e5e6e7'}
-              justifyContent={'center'}
-            >
-              <Text fontWeight={'bold'} fontSize="18px" pr={'0.5rem'}>
-                OTP
-              </Text>
-              {OTP}
-            </Box>
-
-            <Grid templateColumns="repeat(2, 1fr)" gap={2} pb={'2rem'}>
-              <GridItem w="100%" h="10" py={'2rem'}>
-                <Text fontWeight={'bold'}></Text>
-                <Text display={'flex'} flexDirection={'row'}>
-                  <Text pr={'0.5rem'}>
-                    <GrUserWorker />
-                  </Text>
-                  {name}
-                </Text>
-              </GridItem>
-              <GridItem w="100%" h="10" py={'2rem'}>
-                <Text fontWeight={'bold'}></Text>
-                <Link
-                  href={`tel:${phone}`}
-                  display={'flex'}
-                  flexDirection={'row'}
-                >
-                  <Text pr={'0.5rem'}>
-                    <BiPhoneCall fontSize={'20px'} />
-                  </Text>
-                  {phone}
-                </Link>
-              </GridItem>
-            </Grid>
-            <Grid bgColor="#e6e7e8">
-              <GridItem
-                w="100%"
-                py={'2rem'}
-                textAlign={'center'}
-                verticalAlign={'middle'}
-                bgColor={status_color}
-              >
-                <Text fontWeight={'bold'} fontSize={'20px'}>
-                  {msg.toUpperCase()}
-                </Text>
-              </GridItem>
-            </Grid>
-            {status.toUpperCase() === 'COMPLETED' ? (
-              <Grid>
-                <GridItem
-                  w="100%"
-                  py={'2rem'}
-                  textAlign={'center'}
-                  verticalAlign={'middle'}
-                  bgColor={'#e5e6e7'}
-                >
-                  Your Request was attended and completed in
-                  {diff_days !== 0 ? (
-                    <Text fontSize={'lg'} fontWeight={'bold'}>
-                      {diff_days} days
-                    </Text>
-                  ) : diff_hours === 0 ? (
-                    <Text fontSize={'lg'} fontWeight={'bold'}>
-                      {diff_mins} mins
-                    </Text>
-                  ) : (
-                    <Text fontSize={'lg'} fontWeight={'bold'}>
-                      {diff_hours} hours
-                    </Text>
-                  )}
-                </GridItem>
-              </Grid>
-            ) : null}
+            Hello
+            {/* {reqs[0].RequestName} */}
+            {/* {reqs.map(res =>(
+              // res.PublisherID != UID ? (
+                <Reqs
+                  // riid={res.RideID}
+                  // reid={res.RequestID}
+                  rn={res.RequestName}
+                />)
+              // ) : null
+            )} */}
           </ModalBody>
+          {/*  */}
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost" onClick={removeReq}>Remove</Button>
+            <Button variant="ghost">Remove</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

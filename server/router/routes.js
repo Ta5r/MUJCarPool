@@ -3,6 +3,7 @@ import express from "express";
 const router = express.Router();
 import User from "../model/userSchema.js";
 import Ride from "../model/rideSchema.js";
+import RideRequest from "../model/rideRequestSchema.js";
 import authenticate from "../middleware/Authenticate.js";
 
 router.get("/", (req, res) => {
@@ -57,7 +58,6 @@ router.post("/user/login", async (req, res) => {
     console.log(err);
   }
 });
-
 router.post("/add/ride", async (req, res) => {
   console.log(req.body);
   const { PublisherID, from, to, no_of_pass, doj, price } = req.body;
@@ -77,7 +77,6 @@ router.post("/add/ride", async (req, res) => {
     console.log(error);
   }
 });
-
 router.get("/rides/all", async (req, res) => {
   try {
     const allRides = await Ride.find();
@@ -138,18 +137,20 @@ router.get("/rides/:FROM/:TO/:MAXP", async (req, res) => {
     console.log(err);
   }
 });
-router.get("/user/show/:UID", async (req, res) => {
-  const UID = req.params.UID;
-  console.log(UID);
-  try {
-    const my_rides = await Ride.find({ PublisherID: UID });
-    console.log("my_rides");
-    console.log(my_rides);
-    res.status(200).send(my_rides);
-  } catch (err) {
-    console.log(err);
-  }
-});
+// router.get("/user/show/:UID", async (req, res) => {
+//   const UID = req.params.UID;
+//   console.log(UID);
+//   console.log("->");
+//   try {
+//     console.log("<-");
+//     const my_rides = await Ride.find({ PublisherID: UID });
+//     console.log("my_rides");
+//     console.log(my_rides);
+//     res.status(200).send(my_rides);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 router.get("/user/dashboard", authenticate, function (req, res) {
   console.log("Hello from GET / user / dashboard");
@@ -159,15 +160,78 @@ router.get("/user/dashboard", authenticate, function (req, res) {
 
 router.get("/user/data/:UID", async (req, res) => {
   const UID = req.params.UID;
-  try
-  {
-    const data = await User.findOne({UID});
+  try {
+    const data = await User.findOne({ UID });
     res.send(data);
-  }
-  catch(err)
-  {
+  } catch (err) {
     console.log(err);
   }
-})
+});
+
+// router.post("/ride/request/:RideID/:RequestID", async (req, res) => {});
+router.delete("/ride/request/remove/:RideID/:RequestID", async (req, res) => {
+  const RideID = req.params.RideID;
+  const RequestID = req.params.RequestID;
+
+  console.log(RideID);
+  console.log(RequestID);
+
+  try {
+    const data = await RideRequest.findOne({
+      $and: [{ RideID }, { RequestID }],
+    });
+    await data.delete();
+    console.log(data);
+    console.log("Document Deleted");
+    res.status(200).json({ message: "Document deleted" });
+  } catch (err) {
+    console.log("Error occured in deleting request");
+    console.log(err);
+    res.status(400).json({ message: "Couldn't delete" });
+  }
+});
+router.get("/ride/request/show/:RideID/", async (req, res) => {
+  const RideID = req.params.RideID;
+
+  console.log(RideID);
+  try {
+    const data = await RideRequest.find({ RideID });
+    console.log(data);
+    res.status(200).send(data);
+  } catch (err) {
+    console.log();
+  }
+});
+
+router.post("/ride/request/add/:RideID/:RequestID/:RequestName", async (req, res) => {
+  const RideID = req.params.RideID;
+  const RequestID = req.params.RequestID;
+  const RequestName = req.params.RequestName;
+
+  console.log(RideID);
+  console.log(RequestID);
+  console.log(RequestName);
+  try {
+    const test_duplicate = await RideRequest.findOne({
+      $and: [{ RideID }, { RequestID }],
+    });
+    if (test_duplicate) {
+      console.log("_____________________________________");
+      console.log(test_duplicate);
+      console.log("_____________________________________");
+      res.status(400).json({ message: "ALREADY REQUESTED" });
+    } else {
+      const new_request = new RideRequest({
+        RideID,
+        RequestID,
+        RequestName
+      });
+      await new_request.save();
+      res.status(200).json({ message: "RIDE REQUESTED" });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 export default router;

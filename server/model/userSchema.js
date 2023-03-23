@@ -5,7 +5,7 @@ const SECRET_KEY = "OWMRWLERTJFSNCYJANCSFGHASXZRWQURCVSFDDHJ";
 const userSchema = new mongoose.Schema({
 //UID : Student Registration Number OR Employee Registration Number
   UID: {
-    type: Number,
+    type: String,
     required: true,
   },
   //user_type to register type of user being a student, teacher, misc.

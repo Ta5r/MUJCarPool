@@ -1,14 +1,18 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import UserDBNavBar from '../../components/User/UserDBNavBar';
+import Navbar from '../../components/User/Navbar';
 import { Button, Text, ChakraProvider, theme } from '@chakra-ui/react';
 import RideCard from '../../components/User/RideCard';
 
 const RidesSearch = props => {
   const eid = props.uid;
+  console.log('eid from main component --> ' + eid);
 
-  const [S_EID, setEID] = useState('');
-  const [S_name, setName] = useState('');
+  const [S_lname, setlname] = useState('');
+  const [S_email, setemail] = useState('');
+  const [S_phone, setphone] = useState('');
+  const [UID, setUID] = useState('');
+  const [fname, setName] = useState('');
   const [allRides, setAllRides] = useState([]);
 
   useEffect(() => {
@@ -24,8 +28,11 @@ const RidesSearch = props => {
       }).then(response => {
         response.json().then(response => {
           console.log(response);
-          setEID(response.UID);
+          setUID(response.UID);
           setName(response.fname);
+          setlname(response.lname);
+          setemail(response.email);
+          setphone(response.phone);
         });
       });
     } catch (err) {
@@ -33,8 +40,8 @@ const RidesSearch = props => {
       console.log(err);
     }
   }, []);
-  console.log(S_EID);
-  console.log(S_name);
+  console.log('UID from main component --> ' + UID);
+  console.log(fname);
 
   const handleLoad = () => {
     console.log('Load request');
@@ -51,15 +58,22 @@ const RidesSearch = props => {
 
   return (
     <ChakraProvider theme={theme}>
-      <UserDBNavBar eid={S_EID} name={S_name} />
+      <Navbar
+        eid={UID}
+        name={fname}
+        lname={S_lname}
+        email={S_email}
+        phone={S_phone}
+      />
 
       <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
         Browse Ongoing Rides
       </Text>
-      {allRides.map(
-        res => (
-          // res.status.toLowerCase() == 'pending' ? (
+      {allRides.map(res =>
+        res.PublisherID != UID ? (
           <RideCard
+            myName = {fname}
+            uid={UID}
             to={res.to}
             from={res.from}
             doj={res.doj}
@@ -68,13 +82,9 @@ const RidesSearch = props => {
             rideID={res._id}
             pid={res.PublisherID}
           />
-        )
-        // ) : null
+        ) : null
       )}
 
-      {/* <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
-        Completed Rides
-      </Text> */}
       <Button
         bgcolor="red"
         mx="10rem"

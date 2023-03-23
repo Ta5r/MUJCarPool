@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import UserDBNavBar from '../../components/User/UserDBNavBar';
+import Navbar from '../../components/User/Navbar';
 import { Button, Text, ChakraProvider, theme } from '@chakra-ui/react';
-// import RideCard from '../../components/User/RideCard';
 import MyRide from '../../components/User/MyRide';
 
-const RidesSearch = props => {
-  const eid = props.uid;
-
-  const [S_EID, setEID] = useState('');
+const MyRides = props => {
+  const [UID, setUID] = useState('');
   const [S_name, setName] = useState('');
+  const [S_lname, setlname] = useState('');
+  const [S_email, setemail] = useState('');
+  const [S_phone, setphone] = useState('');
   const [allRides, setAllRides] = useState([]);
 
   useEffect(() => {
@@ -24,9 +24,11 @@ const RidesSearch = props => {
         credentials: 'include',
       }).then(response => {
         response.json().then(response => {
-          console.log(response);
-          setEID(response.UID);
+          setUID(response.UID);
           setName(response.fname);
+          setlname(response.lname);
+          setemail(response.email);
+          setphone(response.phone);
         });
       });
     } catch (err) {
@@ -34,15 +36,12 @@ const RidesSearch = props => {
       console.log(err);
     }
   }, []);
-  console.log(S_EID);
-  console.log(S_name);
 
   const handleLoad = () => {
-    console.log('Load request');
     try {
-      axios.get('http://localhost:8000/user/show/' + S_EID).then(response => {
-        console.log(response);
+      axios.get('http://localhost:8000/rides/all/').then(response => {
         setAllRides(response.data);
+        console.log(response);
       });
     } catch (err) {
       console.log('Error occured ');
@@ -52,27 +51,32 @@ const RidesSearch = props => {
 
   return (
     <ChakraProvider theme={theme}>
-      <UserDBNavBar eid={S_EID} name={S_name} />
+      <Navbar
+        eid={UID}
+        name={S_name}
+        lname={S_lname}
+        email={S_email}
+        phone={S_phone}
+      />
 
       <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
         My Ongoing Rides
       </Text>
       {allRides.map(res =>
-        // res.publisherID != S_EID ? (
+        res.PublisherID == UID ? (
           <MyRide
+            UID={UID}
+            key={res._id}
             from={res.from}
             to={res.to}
             doj={res.doj}
             price={res.price}
             rideID={res._id}
-            nop = {res.no_of_pass}
+            nop={res.no_of_pass}
           />
-        // ) : null
+        ) : null
       )}
 
-      {/* <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
-        Completed Rides
-      </Text> */}
       <Button
         bgcolor="red"
         mx="10rem"
@@ -87,4 +91,4 @@ const RidesSearch = props => {
   );
 };
 
-export default RidesSearch;
+export default MyRides;

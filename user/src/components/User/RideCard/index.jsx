@@ -7,7 +7,7 @@ import FadeInUp from '../../Animation/FadeInUp';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-const RideCard = (props) => {
+const RideCard = props => {
   const from = props.from;
   const to = props.to;
   const doj = props.doj;
@@ -15,27 +15,44 @@ const RideCard = (props) => {
   const nop = props.nop;
   const rideID = props.rideID;
   const pid = props.pid;
+  const RequestName = props.myName;
+  const uid = props.uid;
+  console.log('uid -- > ' + uid);
+  const [msg, setMsg] = useState('Request Ride');
 
+  console.log('RIDE ID : ' + rideID);
   const [publisherDetail, setPublisherDetail] = useState({});
-
 
   useEffect(async () => {
     try {
-      const d = await axios.get(`http://localhost:8000/user/data/${pid}`)
+      const d = await axios.get(`http://localhost:8000/user/data/${pid}`);
       console.log(d.data);
       setPublisherDetail(d.data);
     } catch (err) {
       alert(`Error: ${err}`);
     }
-  }, [])
-  
+  }, []);
+
   console.log(props);
 
   var color = 'white';
   var statusColor = 'orange.200';
-  
-  const bookRide = async () => {
-    // console.log('Book Ride');
+
+  const requestRide = async () => {
+    console.log('requestRide()');
+    const RideID = rideID;
+    const RequestID = uid;
+    console.log(RideID);
+    console.log(RequestID);
+    try {
+      const d = await axios.post(
+        `http://localhost:8000/ride/request/add/${RideID}/${RequestID}/${RequestName}`
+      );
+      console.log(d.data);
+      setMsg('Ride Requested');
+    } catch (err) {
+      alert(`Error: ${err}`);
+    }
   };
 
   return (
@@ -91,23 +108,13 @@ const RideCard = (props) => {
             Rs. {price}
           </GridItem>
           <GridItem w="100%" textAlign={'center'}>
-            <Text fontSize={'lg'}>Published by: {`${publisherDetail.fname} ${publisherDetail.lname}`}</Text>
+            <Text fontSize={'lg'}>
+              <b>Ride by</b> <br />
+              {`${publisherDetail.fname} ${publisherDetail.lname}`}
+            </Text>
           </GridItem>
           <GridItem w="100%" textAlign={'center'}>
-            {/* <ModalBox
-            status={status}
-            name={asgnTO_name}
-            phone={phone}
-            OTP={OTP}
-            timestamp={timestamp}
-            completedTime={completedTime}
-            description={description}
-            category={category}
-            subcategory={subcategory}
-            cID = {complaintID}
-            /> */}
-            <br />
-            <Button onClick={bookRide}>Book Ride</Button>
+            <Button onClick={requestRide}>{msg}</Button>
           </GridItem>
         </Grid>
         <br />
