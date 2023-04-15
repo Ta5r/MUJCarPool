@@ -17,21 +17,22 @@ const RideCard = props => {
   const pid = props.pid;
   const RequestName = props.myName;
   const uid = props.uid;
+  const publisherDetail = props.publisher;
   console.log('uid -- > ' + uid);
   const [msg, setMsg] = useState('Request Ride');
 
   console.log('RIDE ID : ' + rideID);
-  const [publisherDetail, setPublisherDetail] = useState({});
+  // const [publisherDetail, setPublisherDetail] = useState({});
 
-  useEffect(async () => {
-    try {
-      const d = await axios.get(`http://localhost:8000/user/data/${pid}`);
-      console.log(d.data);
-      setPublisherDetail(d.data);
-    } catch (err) {
-      alert(`Error: ${err}`);
-    }
-  }, []);
+  // useEffect(async () => {
+  //   try {
+  //     const d = await axios.get(`http://localhost:8000/user/data/${pid}`);
+  //     console.log(d.data);
+  //     setPublisherDetail(d.data);
+  //   } catch (err) {
+  //     alert(`Error: ${err}`);
+  //   }
+  // }, []);
 
   console.log(props);
 
@@ -45,8 +46,10 @@ const RideCard = props => {
     console.log(RideID);
     console.log(RequestID);
     try {
+      console.log({ publisher_id: pid, ride_id: rideID });
       const d = await axios.post(
-        `http://localhost:8000/ride/request/add/${RideID}/${RequestID}/${RequestName}`
+        `http://127.0.0.1:5000/users/${uid}/requests`,
+        { publisher_id: pid, ride_id: rideID }
       );
       console.log(d.data);
       setMsg('Ride Requested');

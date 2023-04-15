@@ -39,8 +39,8 @@ export default function Login() {
     console.log(password);
 
     try {
-      let dat = await axios.post('http://localhost:8000/user/login', {
-        UID:UID,
+      let dat = await axios.post('http://127.0.0.1:5000/users/login', {
+        UID: UID,
         password,
       });
       console.log('data : ' + dat.data);
@@ -64,8 +64,8 @@ export default function Login() {
       setStatus('Please Try Again');
       setTimeout(() => {
         setStatus('Sign in');
-        setmsg('Please fill in your credentials')
-      }, 3000)
+        setmsg('Please fill in your credentials');
+      }, 3000);
       console.log(error);
     }
   };
@@ -97,7 +97,7 @@ export default function Login() {
                   <FormControl id="UID">
                     <FormLabel>Registration Number</FormLabel>
                     <Input
-                    placeholder={"Registration Number"}
+                      placeholder={'Registration Number'}
                       id="UID"
                       type="text"
                       value={UID}
@@ -107,7 +107,7 @@ export default function Login() {
                   <FormControl id="password">
                     <FormLabel>Password</FormLabel>
                     <Input
-                      placeholder={"Password"}
+                      placeholder={'Password'}
                       type="password"
                       id="password"
                       value={password}

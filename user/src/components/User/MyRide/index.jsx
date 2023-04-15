@@ -1,29 +1,21 @@
 import React from 'react';
-import { Grid,Button, GridItem,Text, } from '@chakra-ui/react';
+import { Grid, Button, GridItem, Text } from '@chakra-ui/react';
 import Card from '../../layouts/Card';
 import ModalBox from '../../layouts/ModalBox';
 import FadeInUp from '../../Animation/FadeInUp';
 import { useState, useEffect } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 
-const MyRide = props => {
-  const from = props.from;
-  const to = props.to;
-  const doj = props.doj;
-  const price = props.price;
-  const nop = props.nop;
-  const UID = props.UID;
-  const rideID = props.rideID;
+export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
   var color = 'white';
   var statusColor = 'orange.200';
 
-  const RideID = props.rideID;
-  const [reqs, setReqs] = useState();
+  const [reqs, setReqs] = useState([]);
 
   useEffect(async () => {
     try {
       let dat = await axios.get(
-        `http://localhost:8000/ride/request/show/${RideID}`
+        `http://localhost:8000/ride/request/show/${rideID}`
       );
       console.log('==================================');
       console.log(dat.data);
@@ -34,9 +26,9 @@ const MyRide = props => {
       console.log(err);
     }
   }, []);
-  console.log('11111111111111111111111111111111111111111');
-  console.log(reqs);
-  console.log('11111111111111111111111111111111111111111');
+  // console.log('11111111111111111111111111111111111111111');
+  // console.log(reqs);
+  // console.log('11111111111111111111111111111111111111111');
 
   const checkPassengers = async () => {};
 
@@ -94,8 +86,10 @@ const MyRide = props => {
           </GridItem>
           <GridItem w="100%">
             <Button>Details</Button>
-            {/* <ModalBox rideID={rideID} UID={UID}/> */}
-            {/* {reqs.map(response=><Text>{response.RequestName}</Text>)} */}
+            <ModalBox rideID={rideID} UID={UID} />
+            {reqs.map(response => (
+              <Text>{response.RequestName}</Text>
+            ))}
           </GridItem>
         </Grid>
         <br />

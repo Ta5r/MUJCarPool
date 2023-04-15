@@ -27,10 +27,10 @@ export default function Signup() {
   }, [token]);
 
   const [msg, setmsg] = useState('Please fill in the following details');
-  const [AID, setAID] = useState('');
+  const [AID, setAID] = useState();
   const [password, setPassword] = useState('');
   const [cpassword, setCpassword] = useState('');
-  const [phone, setContact] = useState('');
+  const [phone, setContact] = useState();
   const [email, setEmail] = useState('');
   const [userType, setType] = useState('STUDENT');
   const [designation, setDesig] = useState('Student');
@@ -60,7 +60,7 @@ export default function Signup() {
     console.log(password);
 
     try {
-      let dat = await axios.post('http://localhost:8000/user/register', {
+      let dat = await axios.post('http://127.0.0.1:5000/users/register', {
         UID: AID,
         user_type: userType,
         fname: name,

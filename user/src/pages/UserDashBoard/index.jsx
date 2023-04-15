@@ -1,6 +1,6 @@
 import React from 'react';
 import MyRides from '../MyRides';
-import jwt from "jwt-decode";
+import jwt from 'jwt-decode';
 import { useState, useEffect } from 'react';
 
 const UserDashBoard = () => {
@@ -10,8 +10,10 @@ const UserDashBoard = () => {
     var x = localStorage.getItem('tokenID');
     const user = jwt(x);
     console.log(x);
-    console.log("Hello");
+    console.log('Hello');
     console.log(user);
+    setUID(user.UID);
+    localStorage.setItem('UID', user.UID);
 
     try {
       console.log('userdahboard token read from localStorage : ' + x);

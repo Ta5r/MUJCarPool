@@ -21,6 +21,7 @@ import FadeInUp from '../../components/Animation/FadeInUp';
 
 export default function PublishRide() {
   const navigate = useNavigate();
+  const UID = localStorage.getItem('UID');
   const [publisherID, setPublisherID] = useState('');
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
@@ -71,11 +72,10 @@ export default function PublishRide() {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      let dat = await axios.post('http://localhost:8000/add/ride', {
-        PublisherID: publisherID,
-        from: from,
-        to: to,
-        no_of_pass: nop,
+      let dat = await axios.post(`http://127.0.0.1:5000/users/${UID}/rides/`, {
+        from_location: from,
+        to_location: to,
+        passenger_count: nop,
         doj: doj,
         price: price,
       });

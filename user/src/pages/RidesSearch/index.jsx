@@ -46,8 +46,8 @@ const RidesSearch = props => {
   const handleLoad = () => {
     console.log('Load request');
     try {
-      axios.get('http://localhost:8000/rides/all/').then(response => {
-        console.log(response);
+      axios.get('http://127.0.0.1:5000/rides').then(response => {
+        console.log(response.data);
         setAllRides(response.data);
       });
     } catch (err) {
@@ -72,15 +72,16 @@ const RidesSearch = props => {
       {allRides.map(res =>
         res.PublisherID != UID ? (
           <RideCard
-            myName = {fname}
-            uid={UID}
-            to={res.to}
-            from={res.from}
+            myName={fname}
+            uid={parseInt(localStorage.getItem('UID'))}
+            to={res.to_location}
+            from={res.from_location}
             doj={res.doj}
-            nop={res.no_of_pass}
+            nop={res.passenger_count}
             price={res.price}
-            rideID={res._id}
-            pid={res.PublisherID}
+            rideID={res.id}
+            pid={res.publisher_id}
+            publisher={res.publisher}
           />
         ) : null
       )}
