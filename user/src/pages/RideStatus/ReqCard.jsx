@@ -5,6 +5,8 @@ import FadeInUp from '../../components/Animation/FadeInUp';
 import Card from '../../components/layouts/Card';
 
 const ReqCard = props => {
+  const uid = parseInt(localStorage.getItem('UID'));
+  const rideID = props.rideID;
   const requesteeID = props.requesteeID;
   const [riderName, setriderName] = useState('');
   const [riderData, setriderData] = useState('');
@@ -42,10 +44,26 @@ const ReqCard = props => {
   //     }
   //   };
 
-  const acceptReq = () => {
+  const acceptReq = async () => {
+    try {
+      const d = await axios.put(
+        `http://127.0.0.1:5000/users/${uid}/requests/${rideID}`,
+        { action: 'accept', requestee_id: requesteeID }
+      );
+    } catch (err) {
+      alert(`Error: ${err}`);
+    }
     console.log('accept request');
   };
-  const rejectReq = () => {
+  const rejectReq = async () => {
+    try {
+      const d = await axios.put(
+        `http://127.0.0.1:5000/users/${uid}/requests/${rideID}`,
+        { action: 'reject', requestee_id: requesteeID }
+      );
+    } catch (err) {
+      alert(`Error: ${err}`);
+    }
     console.log('reject request');
   };
 

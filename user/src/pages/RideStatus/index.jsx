@@ -62,32 +62,42 @@ const RideStatus = props => {
         <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
           Pending Requests
         </Text>
-        {reqs.map(res=>
-        (res.request_status=="pending")?
-        <ReqCard requesteeID={res.requestee_id} status={res.request_status} />
-        :null
+        {reqs.map(res =>
+          res.request_status == 'pending' ? (
+            <ReqCard
+              requesteeID={res.requestee_id}
+              status={res.request_status}
+              rideID={slug}
+            />
+          ) : null
         )}
       </Box>
       <Box>
         <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
           Accepted Requests
         </Text>
-        {reqs.map(res=>
-        (res.request_status=="accepted")?
-        <ReqCard requesteeID={res.requestee_id} status={res.request_status} />
-        :null
+        {reqs.map(res =>
+          res.request_status == 'accepted' ? (
+            <ReqCard
+              requesteeID={res.requestee_id}
+              status={res.request_status}
+            />
+          ) : null
         )}
       </Box>
       <Box>
         <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
           Rejected Requests
         </Text>
-        {reqs.map(res=>
-        (res.request_status=="rejected")?
-        <ReqCard requesteeID={res.requestee_id} status={res.request_status} />
-        :<Box>
-          Nothing to Show
-          </Box>
+        {reqs.map(res =>
+          res.request_status == 'rejected' ? (
+            <ReqCard
+              requesteeID={res.requestee_id}
+              status={res.request_status}
+            />
+          ) : (
+            <Box>Nothing to Show</Box>
+          )
         )}
       </Box>
     </ChakraProvider>
