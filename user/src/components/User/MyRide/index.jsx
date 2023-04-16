@@ -13,26 +13,13 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
 
   const navigate = useNavigate();
 
-  const [reqs, setReqs] = useState([]);
 
-  useEffect(async () => {
-    try {
-      let dat = await axios.get(
-        `http://localhost:8000/ride/request/show/${rideID}`
-      );
-      console.log(dat.data);
-      setReqs(dat.data);
-    } catch (err) {
-      console.log('Error occured 24');
-      console.log(err);
-    }
-  }, []);
 
   const redirectReq = async () => {
     console.log(rideID);
     setTimeout(() => {
       navigate('/user/dashboard/ridestatus/'+rideID);
-    }, 5000);
+    }, 1000);
     
   };
 
@@ -90,13 +77,6 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
           </GridItem>
           <GridItem w="100%">
             <Button onClick={redirectReq}>Details2</Button>
-            {/* <ModalBox rideID={rideID} UID={UID} />       */}
-            
-            {reqs.map(response => (
-              <Text>{response.RequestName}</Text>
-            ))}
-
-
           </GridItem>
         </Grid>
         <br />
