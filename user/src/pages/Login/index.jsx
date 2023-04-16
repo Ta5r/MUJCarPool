@@ -53,9 +53,10 @@ export default function Login() {
       if (dat.status === 200) {
         setmsg('SUCCEFULL SIGNIN !');
         setStatus('Signin successful');
+      localStorage.setItem('UID', UID);
         setTimeout(() => {
           navigate('/user/dashboard');
-        }, 2000);
+        }, 1000);
       } else {
         setStatus('Please Try Again');
         setmsg('INCORRECT CREDENTIALS');

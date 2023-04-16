@@ -13,8 +13,6 @@ const UserDashBoard = () => {
     console.log('Hello');
     console.log(user);
     setUID(user.UID);
-    localStorage.setItem('UID', user.UID);
-
     try {
       console.log('userdahboard token read from localStorage : ' + x);
       fetch('/user/dashboard/', {

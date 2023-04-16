@@ -69,6 +69,7 @@ export default function Navbar(props) {
             >
               <Link href="/user/dashboard/publish">Publish a Ride</Link>
               <Link href="/user/dashboard/search">Browse Rides</Link>
+              <Link href="/user/dashboard/myrequests">Upcoming Rides and Requests</Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>

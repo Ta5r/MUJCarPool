@@ -8,6 +8,8 @@ import Footer from './components/layouts/Footer';
 import PublishRide from './pages/PublishRide';
 import UserDashBoard from './pages/UserDashBoard';
 import RidesSearch from './pages/RidesSearch';
+import RideStatus from './pages/RideStatus';
+import MyRequests from './pages/MyRequests';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
@@ -33,6 +35,16 @@ const routing = (
           path="/user/dashboard/search"
           component={RidesSearch}
           element={<RidesSearch />}
+        />
+        <Route
+          path="/user/dashboard/myrequests"
+          component={MyRequests}
+          element={<MyRequests />}
+        />
+        <Route
+          path="/user/dashboard/ridestatus"
+          component={RideStatus}
+          element={<RideStatus />}
         />
       </Routes>
     </div>

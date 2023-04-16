@@ -15,43 +15,16 @@ const RideCard = props => {
   const nop = props.nop;
   const rideID = props.rideID;
   const pid = props.pid;
-  const RequestName = props.myName;
   const uid = props.uid;
   const publisherDetail = props.publisher;
-  console.log('uid -- > ' + uid);
   const [msg, setMsg] = useState('Request Ride');
 
-  console.log('RIDE ID : ' + rideID);
-  // const [publisherDetail, setPublisherDetail] = useState({});
-
-  // useEffect(async () => {
-  //   try {
-  //     const d = await axios.get(`http://localhost:8000/user/data/${pid}`);
-  //     console.log(d.data);
-  //     setPublisherDetail(d.data);
-  //   } catch (err) {
-  //     alert(`Error: ${err}`);
-  //   }
-  // }, []);
-
-  console.log(props);
-
-  var color = 'white';
-  var statusColor = 'orange.200';
-
   const requestRide = async () => {
-    console.log('requestRide()');
-    const RideID = rideID;
-    const RequestID = uid;
-    console.log(RideID);
-    console.log(RequestID);
     try {
-      console.log({ publisher_id: pid, ride_id: rideID });
       const d = await axios.post(
         `http://127.0.0.1:5000/users/${uid}/requests`,
         { publisher_id: pid, ride_id: rideID }
       );
-      console.log(d.data);
       setMsg('Ride Requested');
     } catch (err) {
       alert(`Error: ${err}`);
@@ -69,13 +42,13 @@ const RideCard = props => {
         borderRadius="16px"
         boxShadow=" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
         height={{ sm: '200px' }}
-        bg={color}
+        bg={"white"}
         position="relative"
       >
         <Grid templateColumns="repeat(7, 1fr)" gap={3}>
           <GridItem
             w="100%"
-            bgColor={statusColor}
+            bgColor={'orange.200'}
             textAlign={'center'}
             verticalAlign={'middle'}
             h={'60px'}
@@ -87,7 +60,7 @@ const RideCard = props => {
           </GridItem>
           <GridItem
             w="100%"
-            bgColor={statusColor}
+            bgColor={'orange.200'}
             textAlign={'center'}
             verticalAlign={'middle'}
             h={'60px'}

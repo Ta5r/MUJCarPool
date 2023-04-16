@@ -17,18 +17,13 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
       let dat = await axios.get(
         `http://localhost:8000/ride/request/show/${rideID}`
       );
-      console.log('==================================');
       console.log(dat.data);
       setReqs(dat.data);
-      console.log('==================================');
     } catch (err) {
-      console.log('Error occured ');
+      console.log('Error occured 24');
       console.log(err);
     }
   }, []);
-  // console.log('11111111111111111111111111111111111111111');
-  // console.log(reqs);
-  // console.log('11111111111111111111111111111111111111111');
 
   const checkPassengers = async () => {};
 
@@ -85,11 +80,14 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
             Rs. {price}
           </GridItem>
           <GridItem w="100%">
-            <Button>Details</Button>
-            <ModalBox rideID={rideID} UID={UID} />
+            {/* <Button>Details2</Button> */}
+            <ModalBox rideID={rideID} UID={UID} />      
+            
             {reqs.map(response => (
               <Text>{response.RequestName}</Text>
             ))}
+
+
           </GridItem>
         </Grid>
         <br />
