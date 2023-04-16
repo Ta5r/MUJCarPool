@@ -25,8 +25,6 @@ export default function Navbar(props) {
   const lname = props.lname;
   const email = props.email;
   const phone = props.phone;
-  console.log(props.eid);
-  console.log(props.name);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
@@ -106,7 +104,8 @@ export default function Navbar(props) {
                 >
                   {email}
                   <br/>
-                  +91 {phone}
+                  +91 
+                  {phone}
                 </Text>
                 <MenuDivider />
                 <MenuItem onClick={handleLogout}>Log Out </MenuItem>

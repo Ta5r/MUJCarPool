@@ -4,11 +4,14 @@ import Card from '../../layouts/Card';
 import ModalBox from '../../layouts/ModalBox';
 import FadeInUp from '../../Animation/FadeInUp';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
   var color = 'white';
   var statusColor = 'orange.200';
+
+  const navigate = useNavigate();
 
   const [reqs, setReqs] = useState([]);
 
@@ -25,7 +28,13 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
     }
   }, []);
 
-  const checkPassengers = async () => {};
+  const redirectReq = async () => {
+    console.log(rideID);
+    setTimeout(() => {
+      navigate('/user/dashboard/ridestatus/'+rideID);
+    }, 5000);
+    
+  };
 
   return (
     <FadeInUp>
@@ -80,8 +89,8 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
             Rs. {price}
           </GridItem>
           <GridItem w="100%">
-            {/* <Button>Details2</Button> */}
-            <ModalBox rideID={rideID} UID={UID} />      
+            <Button onClick={redirectReq}>Details2</Button>
+            {/* <ModalBox rideID={rideID} UID={UID} />       */}
             
             {reqs.map(response => (
               <Text>{response.RequestName}</Text>

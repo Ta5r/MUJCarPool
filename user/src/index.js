@@ -42,7 +42,7 @@ const routing = (
           element={<MyRequests />}
         />
         <Route
-          path="/user/dashboard/ridestatus"
+          path="/user/dashboard/ridestatus/:slug"
           component={RideStatus}
           element={<RideStatus />}
         />
