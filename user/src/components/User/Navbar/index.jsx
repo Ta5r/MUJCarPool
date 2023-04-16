@@ -25,8 +25,6 @@ export default function Navbar(props) {
   const lname = props.lname;
   const email = props.email;
   const phone = props.phone;
-  console.log(props.eid);
-  console.log(props.name);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
@@ -69,7 +67,9 @@ export default function Navbar(props) {
             >
               <Link href="/user/dashboard/publish">Publish a Ride</Link>
               <Link href="/user/dashboard/search">Browse Rides</Link>
-              <Link href="/user/dashboard/myrequests">Upcoming Rides and Requests</Link>
+              <Link href="/user/dashboard/myrequests">
+                Upcoming Rides and Requests
+              </Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -94,7 +94,7 @@ export default function Navbar(props) {
                   py={'5px'}
                   pb={'15px'}
                 >
-                  {fname} {lname}
+                  {/* {fname} {lname} */}
                   <br />
                 </Text>
                 <Text
@@ -104,9 +104,10 @@ export default function Navbar(props) {
                   py={'5px'}
                   pb={'15px'}
                 >
-                  {email}
-                  <br/>
-                  +91 {phone}
+                  {/* {email} */}
+                  <br />
+                  +91
+                  {/* {phone} */}
                 </Text>
                 <MenuDivider />
                 <MenuItem onClick={handleLogout}>Log Out </MenuItem>
