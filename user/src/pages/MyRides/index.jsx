@@ -14,7 +14,7 @@ const MyRides = props => {
 
   useEffect(() => {
     try {
-      axios.get(`http://127.0.0.1:5000/users/${UID}/rides`).then(response => {
+      axios.get(`https://muj-travel-buddy-backend-production.up.railway.app/users/${UID}/rides`).then(response => {
         setAllRides(response.data);
         console.log(allRides);
       });
@@ -26,7 +26,7 @@ const MyRides = props => {
 
   const handleLoad = () => {
     try {
-      axios.get(`http://127.0.0.1:5000/users/${UID}/rides`).then(response => {
+      axios.get(`https://muj-travel-buddy-backend-production.up.railway.app/users/${UID}/rides`).then(response => {
         setAllRides(response.data);
         console.log(allRides);
       });

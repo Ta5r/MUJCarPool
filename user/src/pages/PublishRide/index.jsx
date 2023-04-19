@@ -72,7 +72,7 @@ export default function PublishRide() {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      let dat = await axios.post(`http://127.0.0.1:5000/users/${UID}/rides/`, {
+      let dat = await axios.post(`https://muj-travel-buddy-backend-production.up.railway.app/users/${UID}/rides`, {
         from_location: from,
         to_location: to,
         passenger_count: nop,

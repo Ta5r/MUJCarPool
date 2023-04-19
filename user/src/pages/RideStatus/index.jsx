@@ -14,7 +14,7 @@ const RideStatus = props => {
   useEffect(async () => {
     try {
       let dat = await axios.get(
-        `http://127.0.0.1:5000/rides/${slug}/requests/`
+        `https://muj-travel-buddy-backend-production.up.railway.app/rides/${slug}/requests/`
       );
       setReqs(dat.data);
       console.log(dat.data);
@@ -24,7 +24,7 @@ const RideStatus = props => {
     }
 
     try {
-      axios.get(`http://127.0.0.1:5000/rides/${slug}`).then(response => {
+      axios.get(`https://muj-travel-buddy-backend-production.up.railway.app/rides/${slug}`).then(response => {
         setRideDetails(response.data);
         console.log(response.data);
       });

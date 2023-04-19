@@ -11,7 +11,7 @@ const RidesSearch = props => {
   useEffect(() => {
     try {
       axios
-        .get(`http://127.0.0.1:5000/requests?requestee_id=${UID}`)
+        .get(`https://muj-travel-buddy-backend-production.up.railway.app/requests?requestee_id=${UID}`)
         .then(response => {
           setMyRequests(response.data);
         });

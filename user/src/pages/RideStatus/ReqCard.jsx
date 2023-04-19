@@ -12,7 +12,7 @@ const ReqCard = props => {
   const [riderData, setriderData] = useState('');
   useEffect(() => {
     try {
-      axios.get(`http://127.0.0.1:5000/users/${requesteeID}`).then(response => {
+      axios.get(`https://muj-travel-buddy-backend-production.up.railway.app/users/${requesteeID}`).then(response => {
         setriderName(response.data.fname);
         setriderData(response.data);
       });
@@ -35,7 +35,7 @@ const ReqCard = props => {
   //   const requestRide = async () => {
   //     try {
   //       const d = await axios.post(
-  //         `http://127.0.0.1:5000/users/${uid}/requests`,
+  //         `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests`,
   //         { publisher_id: pid, ride_id: rideID }
   //       );
   //       setMsg('Ride Requested');
@@ -47,7 +47,7 @@ const ReqCard = props => {
   const acceptReq = async () => {
     try {
       const d = await axios.put(
-        `http://127.0.0.1:5000/users/${uid}/requests/${rideID}`,
+        `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests/${rideID}`,
         { action: 'accept', requestee_id: requesteeID }
       );
     } catch (err) {
@@ -58,7 +58,7 @@ const ReqCard = props => {
   const rejectReq = async () => {
     try {
       const d = await axios.put(
-        `http://127.0.0.1:5000/users/${uid}/requests/${rideID}`,
+        `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests/${rideID}`,
         { action: 'reject', requestee_id: requesteeID }
       );
     } catch (err) {

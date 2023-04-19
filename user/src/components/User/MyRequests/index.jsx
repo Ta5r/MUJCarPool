@@ -28,7 +28,7 @@ const RideCard = props => {
 
   useEffect(() => {
     try {
-      axios.get(`http://127.0.0.1:5000/rides/${rideID}`).then(response => {
+      axios.get(`https://muj-travel-buddy-backend-production.up.railway.app/rides/${rideID}`).then(response => {
         setRideDetails(response.data);
       });
     } catch (err) {

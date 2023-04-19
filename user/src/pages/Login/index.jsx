@@ -39,7 +39,7 @@ export default function Login() {
     console.log(password);
 
     try {
-      let dat = await axios.post('http://127.0.0.1:5000/users/login', {
+      let dat = await axios.post('https://muj-travel-buddy-backend-production.up.railway.app/users/login', {
         UID: UID,
         password,
       });
