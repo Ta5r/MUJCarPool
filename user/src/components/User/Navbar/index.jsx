@@ -13,28 +13,39 @@ import {
   MenuDivider,
   useDisclosure,
   useColorModeValue,
+  Stack,
+  Text,
   ChakraProvider,
   theme,
-  Text,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import jwt from 'jwt-decode';
 
-export default function Navbar(props) {
-  const fname = props.name;
-  const lname = props.lname;
-  const email = props.email;
-  const phone = props.phone;
+var name="";
+var x = localStorage.getItem('tokenID');
+if(x){
+  const user = jwt(x);
+  name = user.fname + ' ' + user.lname;
+  console.log(user);
+}
+
+export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const navigate = useNavigate();
 
-  const handleLogout = async event => {
-    console.log('Loggin user out');
-    localStorage.setItem('tokenID', '');
-
-    setTimeout(() => {
-      navigate('/');
-    }, 1000);
+  const publishRide = () => {
+    navigate('/user/dashboard/publish');
+  };
+  const myprofile = () => {
+    navigate('/user/profile');
+  };
+  const pymnts = () => {
+    navigate('/user/payments');
+  };
+  const logout = () => {
+    localStorage.clear();
+    navigate('/');
   };
 
   return (
@@ -50,29 +61,29 @@ export default function Navbar(props) {
           />
           <HStack spacing={8} alignItems={'center'}>
             <Box>
-              <Link href="/user/dashboard">
-                <Text
-                  fontWeight={'bold'}
-                  fontFamily={'heading'}
-                  color={useColorModeValue('gray.800', 'white')}
-                >
-                  My Rides
-                </Text>
-              </Link>
+              <Text fontWeight={'bold'}>Travel Buddy</Text>
             </Box>
             <HStack
               as={'nav'}
               spacing={4}
               display={{ base: 'none', md: 'flex' }}
             >
-              <Link href="/user/dashboard/publish">Publish a Ride</Link>
-              <Link href="/user/dashboard/search">Browse Rides</Link>
-              <Link href="/user/dashboard/myrequests">
-                Upcoming Rides and Requests
-              </Link>
+              <Link href="/user/dashboard/">My Rides</Link>
+              <Link href="/user/dashboard/search">Search Rides</Link>
+              <Link href="/user/dashboard/myrequests">Rides Status</Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
+            <Button
+              variant={'solid'}
+              bgColor={'orange.200'}
+              size={'sm'}
+              mr={4}
+              leftIcon={<AddIcon />}
+              onClick={publishRide}
+            >
+              Publish Ride
+            </Button>
             <Menu>
               <MenuButton
                 as={Button}
@@ -83,42 +94,33 @@ export default function Navbar(props) {
               >
                 <Avatar
                   size={'sm'}
-                  src={'https://avatars.githubusercontent.com/u/10548085?v=4'}
+                  src={
+                    'https://images.unsplash.com/photo-1565802527863-1353e4ebce91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=712&q=80'
+                  }
                 />
               </MenuButton>
               <MenuList>
-                <Text
-                  fontSize={'23px'}
-                  fontWeight={'bold'}
-                  px={'10px'}
-                  py={'5px'}
-                  pb={'15px'}
-                >
-                  {/* {fname} {lname} */}
-                  <br />
+                <Text p={'1rem'} fontWeight={'bold'}>
+                  {name}
                 </Text>
-                <Text
-                  fontSize={'18px'}
-                  fontWeight={'bold'}
-                  px={'10px'}
-                  py={'5px'}
-                  pb={'15px'}
-                >
-                  {/* {email} */}
-                  <br />
-                  +91
-                  {/* {phone} */}
-                  {email}
-                  <br/>
-                  +91 
-                  {phone}
-                </Text>
+                <MenuItem onClick={myprofile}>My Profile</MenuItem>
+                <MenuItem onClick={pymnts}>Payments</MenuItem>
                 <MenuDivider />
-                <MenuItem onClick={handleLogout}>Log Out </MenuItem>
+                <MenuItem onClick={logout}>Log Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>
         </Flex>
+
+        {isOpen ? (
+          <Box pb={4} display={{ md: 'none' }}>
+            <Stack as={'nav'} spacing={4} p={'1rem'}>
+              <Link href="/user/dashboard/">My Rides</Link>
+              <Link href="/user/dashboard/search">Search Rides</Link>
+              <Link href="/user/dashboard/myrequests">Rides Status</Link>
+            </Stack>
+          </Box>
+        ) : null}
       </Box>
     </ChakraProvider>
   );

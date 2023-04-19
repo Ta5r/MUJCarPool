@@ -2,11 +2,10 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../../components/User/Navbar';
-import { Button, Text, ChakraProvider, theme, Box } from '@chakra-ui/react';
-// import RideCard from '../../components/User/RideCard';
+import { Text, ChakraProvider, theme, Box } from '@chakra-ui/react';
 import ReqCard from './ReqCard';
 
-const RideStatus = props => {
+const RideStatus = () => {
   const { slug } = useParams();
   const [reqs, setReqs] = useState([]);
   const [rideDetails, setRideDetails] = useState({});
@@ -17,9 +16,7 @@ const RideStatus = props => {
         `https://muj-travel-buddy-backend-production.up.railway.app/rides/${slug}/requests/`
       );
       setReqs(dat.data);
-      console.log(dat.data);
     } catch (err) {
-      console.log('Error occured 33');
       console.log(err);
     }
 
@@ -29,16 +26,9 @@ const RideStatus = props => {
         console.log(response.data);
       });
     } catch (err) {
-      console.log('Error occured ');
       console.log(err);
     }
   }, []);
-
-  reqs.forEach(req => {
-    console.log(req);
-    console.log(req.request_status);
-    console.log(req.requestee_id);
-  });
 
   return (
     <ChakraProvider theme={theme}>

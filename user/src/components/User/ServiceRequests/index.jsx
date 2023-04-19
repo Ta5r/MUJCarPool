@@ -18,24 +18,17 @@ const ServiceRequests = props => {
           setComplaints(response.data);
         });
     } catch (err) {
-      console.log('Error occured ');
       console.log(err);
     }
   }, [aid]);
 
-  console.log('!!');
-  console.log(complaints);
-  console.log('!!');
-
   return (
     <>
-    
       <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
         Pending Requests
       </Text>
       {complaints.map(res =>
-        res.status.toLowerCase() === 'pending' && res.adminRemoved === false ? 
-        (
+        res.status.toLowerCase() === 'pending' && res.adminRemoved === false ? (
           <p>
             <ACard
               id={res._id}
@@ -48,7 +41,7 @@ const ServiceRequests = props => {
               phone={res.phone}
               completedTime={res.completedTime}
               timestamp={res.timestamp}
-              adminRemoved = {res.adminRemoved}
+              adminRemoved={res.adminRemoved}
               status={res.status}
               category={res.category}
               subcategory={res.subcategory}
@@ -57,16 +50,21 @@ const ServiceRequests = props => {
               feedback="Feedback"
             />
           </p>
-        ) 
-        : (<Text
-          fontWeight={'bold'}
-          ml={"6rem"}>Nothing to shoow<br/><br/><br/></Text>)
+        ) : (
+          <Text fontWeight={'bold'} ml={'6rem'}>
+            Nothing to shoow
+            <br />
+            <br />
+            <br />
+          </Text>
+        )
       )}
       <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
         Completed Requests
       </Text>
       {complaints.map(res =>
-        res.status.toLowerCase() === 'completed' && res.adminRemoved === false ? (
+        res.status.toLowerCase() === 'completed' &&
+        res.adminRemoved === false ? (
           <p>
             <ACard
               id={res._id}
@@ -87,9 +85,14 @@ const ServiceRequests = props => {
               feedback="Feedback"
             />
           </p>
-        ) : (<Text
-        fontWeight={'bold'}
-        ml={"6rem"}>Nothing to show<br/><br/><br/></Text>)
+        ) : (
+          <Text fontWeight={'bold'} ml={'6rem'}>
+            Nothing to show
+            <br />
+            <br />
+            <br />
+          </Text>
+        )
       )}
     </>
   );

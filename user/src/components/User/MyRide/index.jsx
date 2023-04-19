@@ -1,11 +1,8 @@
 import React from 'react';
 import { Grid, Button, GridItem, Text } from '@chakra-ui/react';
 import Card from '../../layouts/Card';
-import ModalBox from '../../layouts/ModalBox';
 import FadeInUp from '../../Animation/FadeInUp';
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
   var color = 'white';
@@ -13,14 +10,11 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
 
   const navigate = useNavigate();
 
-
-
   const redirectReq = async () => {
     console.log(rideID);
     setTimeout(() => {
-      navigate('/user/dashboard/ridestatus/'+rideID);
+      navigate('/user/dashboard/ridestatus/' + rideID);
     }, 1000);
-    
   };
 
   return (
@@ -76,7 +70,7 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
             Rs. {price}
           </GridItem>
           <GridItem w="100%">
-            <Button onClick={redirectReq}>Details2</Button>
+            <Button onClick={redirectReq}>Details</Button>
           </GridItem>
         </Grid>
         <br />

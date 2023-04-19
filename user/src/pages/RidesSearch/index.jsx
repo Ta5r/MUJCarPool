@@ -1,75 +1,140 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/User/Navbar';
-// import { Button, Text, ChakraProvider, theme } from '@chakra-ui/react';
 import RideCard from '../../components/User/RideCard';
 import {
   ChakraProvider,
   Text,
-  Stack,
-  Flex,
-  Button,
-  Image,
-  Link,
-  Heading,
   theme,
+  Box,
+  FormControl,
+  FormLabel,
+  Stack,
+  Button,
+  Input,
+  Heading,
+  useColorModeValue,
+  HStack,
 } from '@chakra-ui/react';
-import SearchBox from './SearchBox';
 const RidesSearch = props => {
-  const eid = props.uid;
   const [allRides, setAllRides] = useState([]);
-  const UID = localStorage.getItem('UID');
 
-  try {
-    axios
-      .get('https://muj-travel-buddy-backend-production.up.railway.app/rides')
-      .then(response => {
-        setAllRides(response.data);
-      });
-  } catch (err) {
-    console.log('Error occured ');
-    console.log(err);
-  }
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [doj, setDoj] = useState('');
+  const [price, setPrice] = useState('');
+  const [msg, setmsg] = useState('Please fill the following details');
+
+  const handleFromChange = e => setFrom(e.target.value);
+  const handleToChange = e => setTo(e.target.value);
+  const handleDojChange = e => setDoj(e.target.value);
+  const handlePriceChange = e => setPrice(e.target.value);
+  const handleSubmit = async event => {
+    event.preventDefault();
+    try {
+      let dat = await axios.get(
+        `https://muj-travel-buddy-backend-production.up.railway.app/rides/`,
+        {
+          params: {
+            from_location: from,
+            to_location: to,
+            doj: doj,
+            price: price,
+          },
+        }
+      );
+      setAllRides(dat.data);
+      if (dat.status == 200) {
+        setmsg('Scroll to view rides');
+      } else {
+        setmsg("Couldn't find rides");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <ChakraProvider theme={theme}>
-      <Navbar
-        eid={UID}
-        // name={fname}
-        // lname={S_lname}
-        // email={S_email}
-        // phone={S_phone}
-      />
-      <Stack minH={'80vh'} direction={{ base: 'column', md: 'row' }}>
-      <Flex flex={1}>
-          <Image
-            alt={'MUJ-IMAGE'}
-            objectFit={'cover'}
-            h="100vh"
-            w="50vw"
-            src={
-              'https://mujslcm.jaipur.manipal.edu:122/keen/themes/keen/theme/demo1/dist/assets/media/misc/bg_1.jpg'
-            }
-          />
-        </Flex>
-        <Flex p={8} flex={1} align={'center'} justify={'center'}>
-          {/* <Stack spacing={6} w={'full'} maxW={'lg'}> */}
-            <SearchBox/>
-          {/* </Stack> */}
-        </Flex>
-        
-      </Stack>
-      {/* <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
-        Browse Ongoing Rides
-      </Text> */}
+      <Navbar />
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={2} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'}> Search Rides</Heading>
+          <Text fontSize={'lg'} color={'gray.600'}>
+            {msg}
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={8}
+        >
+          <Stack spacing={4}>
+            <form onSubmit={handleSubmit}>
+              <FormControl id="publish_ride">
+                <HStack>
+                  <FormLabel>From</FormLabel>
+                  <Input
+                    placeholder={'Enter a pick-up point'}
+                    id="from"
+                    type="text"
+                    onChange={handleFromChange}
+                  />
 
-      {/* <SearchBox /> */}
+                  <FormLabel>To</FormLabel>
+                  <Input
+                    placeholder={'Enter a drop point'}
+                    id="to"
+                    type="text"
+                    onChange={handleToChange}
+                  />
+                </HStack>
+                <br />
+                <HStack>
+                  <FormLabel>Date of Journey</FormLabel>
+                  <Input
+                    placeholder={'Date of Journey'}
+                    id="doj"
+                    type="date"
+                    onChange={handleDojChange}
+                  />
+                </HStack>
+                <br />
+                <HStack>
+                  <FormLabel>Price per head</FormLabel>
+                  <Input
+                    placeholder={'Price per head'}
+                    id="price"
+                    type="text"
+                    onChange={handlePriceChange}
+                  />
+                </HStack>
+              </FormControl>
+              <br />
+              <Stack spacing={10}>
+                <Button
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                  my={'1rem'}
+                  type="submit"
+                >
+                  Search Ride
+                </Button>
+              </Stack>
+            </form>
+            <Stack spacing={10}></Stack>
+          </Stack>
+        </Box>
+      </Stack>
 
       {allRides.map(res =>
         res.publisher_id !== parseInt(localStorage.getItem('UID')) ? (
           <RideCard
             key={res.id}
-            // myName={fname}
             uid={parseInt(localStorage.getItem('UID'))}
             to={res.to_location}
             from={res.from_location}
@@ -82,7 +147,8 @@ const RidesSearch = props => {
           />
         ) : null
       )}
-      <SearchBox />
+      <br />
+      <br />
     </ChakraProvider>
   );
 };

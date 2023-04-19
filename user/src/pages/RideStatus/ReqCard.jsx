@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { Grid, Box, GridItem, Link, Text, Button } from '@chakra-ui/react';
+import { Grid, Box, GridItem, Text, Button } from '@chakra-ui/react';
 import axios from 'axios';
 import FadeInUp from '../../components/Animation/FadeInUp';
 import Card from '../../components/layouts/Card';
@@ -19,30 +19,14 @@ const ReqCard = props => {
     } catch (err) {
       console.log(err);
     }
-    // return () => {
-    //   second
-    // }
   }, []);
   console.log(riderData);
   const riderStar = '4';
-  const riderID = '209301000';
   const riderType = 'Student';
   const status = props.status.toLowerCase(); //pending , accepted, rejected
   var statusColor = 'grey.200';
   if (status == 'accepted') statusColor = 'green.400';
   else statusColor = 'red.500';
-
-  //   const requestRide = async () => {
-  //     try {
-  //       const d = await axios.post(
-  //         `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests`,
-  //         { publisher_id: pid, ride_id: rideID }
-  //       );
-  //       setMsg('Ride Requested');
-  //     } catch (err) {
-  //       alert(`Error: ${err}`);
-  //     }
-  //   };
 
   const acceptReq = async () => {
     try {
@@ -54,6 +38,9 @@ const ReqCard = props => {
       alert(`Error: ${err}`);
     }
     console.log('accept request');
+    setTimeout(()=>{
+      window.location.reload();
+    },500)
   };
   const rejectReq = async () => {
     try {

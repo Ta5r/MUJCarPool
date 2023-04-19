@@ -35,8 +35,6 @@ export default function Login() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(UID);
-    console.log(password);
 
     try {
       let dat = await axios.post('https://muj-travel-buddy-backend-production.up.railway.app/users/login', {
@@ -44,12 +42,10 @@ export default function Login() {
         password,
       });
       console.log('data : ' + dat.data);
+      console.log("----");
       console.log(dat.data.user);
-      const stringToken = '' + dat.data.token;
-      console.log('String Token : ' + stringToken);
+      console.log("----");
       setToken(dat.data.token);
-      console.log(dat.data.token);
-      console.log('status : ' + dat.status);
       if (dat.status === 200) {
         setmsg('SUCCEFULL SIGNIN !');
         setStatus('Signin successful');

@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import App from './pages/App';
@@ -10,6 +10,8 @@ import UserDashBoard from './pages/UserDashBoard';
 import RidesSearch from './pages/RidesSearch';
 import RideStatus from './pages/RideStatus';
 import MyRequests from './pages/MyRequests';
+import Profile from './pages/Profile';
+import Payments from './pages/Payments';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
@@ -45,6 +47,16 @@ const routing = (
           path="/user/dashboard/ridestatus/:slug"
           component={RideStatus}
           element={<RideStatus />}
+        />
+        <Route
+          path="/user/profile"
+          component={Profile}
+          element={<Profile />}
+        />
+        <Route
+          path="/user/payments"
+          component={Payments}
+          element={<Payments />}
         />
       </Routes>
     </div>

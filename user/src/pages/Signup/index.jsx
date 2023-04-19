@@ -72,7 +72,6 @@ export default function Signup() {
       });
 
       if (dat.status === 201) {
-        // setToken();
         console.log(dat);
         setmsg('Successful Registration');
         setStat('Registered');
@@ -123,7 +122,7 @@ export default function Signup() {
                   <FormControl id="Name">
                     <FormLabel>First Name</FormLabel>
                     <Input
-                      placeholder={'Lakshya'}
+                      placeholder={'First name'}
                       type="text"
                       id="Name"
                       value={name}
@@ -133,7 +132,7 @@ export default function Signup() {
                   <FormControl id="LName">
                     <FormLabel>Last Name</FormLabel>
                     <Input
-                      placeholder={'Malik'}
+                      placeholder={'Last name'}
                       type="text"
                       id="LName"
                       value={lname}
@@ -153,7 +152,7 @@ export default function Signup() {
                   <FormControl id="Contact">
                     <FormLabel>Contact</FormLabel>
                     <Input
-                      placeholder={'890765431'}
+                      placeholder={'9876543210'}
                       type="text"
                       id="contact"
                       value={phone}
@@ -173,7 +172,7 @@ export default function Signup() {
                   <FormControl id="email">
                     <FormLabel>Email</FormLabel>
                     <Input
-                      placeholder={'lakshya.209301174@muj.manipal.edu'}
+                      placeholder={'email@muj.manipal.edu'}
                       type="email"
                       id="email"
                       value={email}
@@ -183,7 +182,7 @@ export default function Signup() {
                   <FormControl id="password">
                     <FormLabel>Password</FormLabel>
                     <Input
-                      placeholder={'Password'}
+                      placeholder={'Choose a password'}
                       type="password"
                       id="password"
                       value={password}
@@ -193,7 +192,7 @@ export default function Signup() {
                   <FormControl id="cpassword">
                     <FormLabel>Confirm Password</FormLabel>
                     <Input
-                      placeholder={'Confirm Password'}
+                      placeholder={'Re-enter your password'}
                       type="password"
                       id="cpassword"
                       value={cpassword}
@@ -218,6 +217,8 @@ export default function Signup() {
             </Box>
           </Stack>
         </Flex>
+          <br/>
+          <br/>
       </FadeInUp>
     </ChakraProvider>
   );
