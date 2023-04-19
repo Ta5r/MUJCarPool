@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from '../../layouts/Card';
 import { Text } from '@chakra-ui/react';
-import { Grid, GridItem } from '@chakra-ui/react';
+import { SimpleGrid, Box } from '@chakra-ui/react';
 import FadeInUp from '../../Animation/FadeInUp';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -38,16 +38,16 @@ const RideCard = props => {
         py="3rem"
         my="2rem"
         px="2rem"
-        mx="4rem"
+        mx={['1rem', '2rem', '3rem', '4rem']}
         width="70vw"
         borderRadius="16px"
         boxShadow=" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-        height={{ sm: '200px' }}
+        height={{ xs: '400px', sm: '300px', md: '150px', lg: '150px' }}
         bg={'white'}
         position="relative"
       >
-        <Grid templateColumns="repeat(5, 1fr)" gap={3}>
-          <GridItem
+        <SimpleGrid columns={[1,2,3,4,5]} spacing={"40px"}>
+          <Box
             w="100%"
             bgColor={statusColors[requestStatus]}
             textAlign={'center'}
@@ -58,9 +58,9 @@ const RideCard = props => {
             <Text fontWeight={600} fontSize={'3xl'}>
               {requestStatus}
             </Text>
-          </GridItem>
+          </Box>
 
-          <GridItem
+          <Box
             w="100%"
             textAlign={'center'}
             verticalAlign={'middle'}
@@ -68,10 +68,10 @@ const RideCard = props => {
             borderRadius={'50px'}
           >
             <Text fontWeight={600} fontSize={'3xl'}>
-              {rideDetails.from_location}
+              {rideDetails.from_location} 
             </Text>
-          </GridItem>
-          <GridItem
+          </Box>
+          <Box
             w="100%"
             textAlign={'center'}
             verticalAlign={'middle'}
@@ -81,18 +81,18 @@ const RideCard = props => {
             <Text fontWeight={600} fontSize={'3xl'}>
               {rideDetails.to_location}
             </Text>
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
-            <Text fontWeight={600} fontSize={'3xl'}>
+          </Box>
+          <Box w="100%" textAlign={'center'}>
+            <Text fontWeight={600} fontSize={'2xl'}>
               {rideDetails.doj}
             </Text>
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
+          </Box>
+          <Box w="100%" textAlign={'center'}>
             <b>Price</b>
             <br />
             Rs. {rideDetails.price}
-          </GridItem>
-        </Grid>
+          </Box>
+        </SimpleGrid>
         <br />
         <br />
       </Card>

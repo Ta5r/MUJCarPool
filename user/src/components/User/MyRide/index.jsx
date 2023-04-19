@@ -1,5 +1,10 @@
 import React from 'react';
-import { Grid, Button, GridItem, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Text,
+  SimpleGrid,
+} from '@chakra-ui/react';
 import Card from '../../layouts/Card';
 import FadeInUp from '../../Animation/FadeInUp';
 import { useNavigate } from 'react-router-dom';
@@ -23,16 +28,16 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
         py="3rem"
         my="2rem"
         px="2rem"
-        mx="4rem"
-        width="90vw"
+        mx={['1rem', '2rem', '3rem', '4rem']}
+        width="80vw"
         borderRadius="16px"
         boxShadow=" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-        height={{ sm: '200px' }}
+        height={{ xs: '400px', sm: '300px', md: '150px', lg:'150px' }}
         bg={color}
         position="relative"
       >
-        <Grid templateColumns="repeat(6, 1fr)" gap={3}>
-          <GridItem
+        <SimpleGrid columns={[1,2, 3, 4, 5, 6]} spacing="40px">
+          <Box
             w="100%"
             bgColor={statusColor}
             textAlign={'center'}
@@ -40,11 +45,11 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
             h={'60px'}
             borderRadius={'50px'}
           >
-            <Text fontWeight={600} fontSize={'3xl'}>
+            <Text fontWeight={600} fontSize={['2xl','3xl','4xl']}>
               {from}
             </Text>
-          </GridItem>
-          <GridItem
+          </Box>
+          <Box
             w="100%"
             bgColor={statusColor}
             textAlign={'center'}
@@ -52,27 +57,29 @@ export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
             h={'60px'}
             borderRadius={'50px'}
           >
-            <Text fontWeight={600} fontSize={'3xl'}>
+            <Text fontWeight={600} fontSize={['2xl','3xl','4xl']}>
               {to}
             </Text>
-          </GridItem>
-
-          <GridItem w="100%" textAlign={'center'}>
+          </Box>
+          <Box align="center">
             <Text fontWeight={'bold'}>Date of Journey:</Text>
             {doj}
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
-            <Text fontSize={'2xl'}>{nop} Passengers</Text>
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
+          </Box>
+          <Box align="center">
+            <Text fontSize={'xl'} fontWeight={'bold'}>
+              {nop}
+            </Text>
+            <Text>Seats</Text>
+          </Box>
+          <Box align="center">
             <b>Price</b>
             <br />
             Rs. {price}
-          </GridItem>
-          <GridItem w="100%">
+          </Box>
+          <Box align="center">
             <Button onClick={redirectReq}>Details</Button>
-          </GridItem>
-        </Grid>
+          </Box>
+        </SimpleGrid>
         <br />
         <br />
       </Card>

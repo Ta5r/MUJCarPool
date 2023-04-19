@@ -68,7 +68,7 @@ function App() {
               alt={'MUJ-IMAGE'}
               objectFit={'cover'}
               h="100vh"
-              w="50vw"
+              // w="50vw"
               src={
                 "https://mujslcm.jaipur.manipal.edu:122/keen/themes/keen/theme/demo1/dist/assets/media/misc/bg_1.jpg"
               }

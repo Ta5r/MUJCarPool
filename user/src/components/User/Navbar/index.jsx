@@ -70,7 +70,7 @@ export default function Navbar() {
             >
               <Link href="/user/dashboard/">My Rides</Link>
               <Link href="/user/dashboard/search">Search Rides</Link>
-              <Link href="/user/dashboard/myrequests">Rides Status</Link>
+              <Link href="/user/dashboard/myrequests">Requests Status</Link>
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
@@ -117,7 +117,7 @@ export default function Navbar() {
             <Stack as={'nav'} spacing={4} p={'1rem'}>
               <Link href="/user/dashboard/">My Rides</Link>
               <Link href="/user/dashboard/search">Search Rides</Link>
-              <Link href="/user/dashboard/myrequests">Rides Status</Link>
+              <Link href="/user/dashboard/myrequests">Requests Status</Link>
             </Stack>
           </Box>
         ) : null}

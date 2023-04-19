@@ -16,7 +16,7 @@ import {
   useColorModeValue,
   HStack,
 } from '@chakra-ui/react';
-const RidesSearch = props => {
+const RidesSearch = () => {
   const [allRides, setAllRides] = useState([]);
 
   const [from, setFrom] = useState('');
@@ -130,23 +130,24 @@ const RidesSearch = props => {
           </Stack>
         </Box>
       </Stack>
-
-      {allRides.map(res =>
-        res.publisher_id !== parseInt(localStorage.getItem('UID')) ? (
-          <RideCard
-            key={res.id}
-            uid={parseInt(localStorage.getItem('UID'))}
-            to={res.to_location}
-            from={res.from_location}
-            doj={res.doj}
-            nop={res.passenger_count}
-            price={res.price}
-            rideID={res.id}
-            pid={res.publisher_id}
-            publisher={res.publisher}
-          />
-        ) : null
-      )}
+      <Box align={'center'}>
+        {allRides.map(res =>
+          res.publisher_id !== parseInt(localStorage.getItem('UID')) ? (
+            <RideCard
+              key={res.id}
+              uid={parseInt(localStorage.getItem('UID'))}
+              to={res.to_location}
+              from={res.from_location}
+              doj={res.doj}
+              nop={res.passenger_count}
+              price={res.price}
+              rideID={res.id}
+              pid={res.publisher_id}
+              publisher={res.publisher}
+            />
+          ) : null
+        )}
+      </Box>
       <br />
       <br />
     </ChakraProvider>

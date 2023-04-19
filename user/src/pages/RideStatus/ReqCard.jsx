@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { Grid, Box, GridItem, Text, Button } from '@chakra-ui/react';
+import { SimpleGrid, Box, Text, Button } from '@chakra-ui/react';
 import axios from 'axios';
 import FadeInUp from '../../components/Animation/FadeInUp';
 import Card from '../../components/layouts/Card';
@@ -12,10 +12,14 @@ const ReqCard = props => {
   const [riderData, setriderData] = useState('');
   useEffect(() => {
     try {
-      axios.get(`https://muj-travel-buddy-backend-production.up.railway.app/users/${requesteeID}`).then(response => {
-        setriderName(response.data.fname);
-        setriderData(response.data);
-      });
+      axios
+        .get(
+          `https://muj-travel-buddy-backend-production.up.railway.app/users/${requesteeID}`
+        )
+        .then(response => {
+          setriderName(response.data.fname);
+          setriderData(response.data);
+        });
     } catch (err) {
       console.log(err);
     }
@@ -38,9 +42,9 @@ const ReqCard = props => {
       alert(`Error: ${err}`);
     }
     console.log('accept request');
-    setTimeout(()=>{
+    setTimeout(() => {
       window.location.reload();
-    },500)
+    }, 500);
   };
   const rejectReq = async () => {
     try {
@@ -52,6 +56,18 @@ const ReqCard = props => {
       alert(`Error: ${err}`);
     }
     console.log('reject request');
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  };
+
+  const callNum = () => {
+    const dummyNum = riderData.phone;
+    window.open(`tel:+91${dummyNum}`);
+  };
+  const callEmail = () => {
+    const dummyMail = riderData.email;
+    window.open(`mailto:${dummyMail}`);
   };
 
   return (
@@ -60,16 +76,16 @@ const ReqCard = props => {
         py="3rem"
         my="2rem"
         px="2rem"
-        mx="4rem"
+        mx={['1rem', '2rem', '3rem', '4rem']}
         width="80vw"
         borderRadius="16px"
         boxShadow=" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-        height={{ sm: '200px' }}
+        height={{ xs: '400px', sm: '300px', md: '150px', lg: '150px' }}
         bg={'white'}
         position="relative"
       >
-        <Grid templateColumns="repeat(5, 1fr)" gap={3}>
-          <GridItem
+        <SimpleGrid columns={[1, 2, 3, 4, 5]} spacing={'40px'}>
+          <Box
             w="100%"
             bgColor={'orange.200'}
             textAlign={'center'}
@@ -80,8 +96,8 @@ const ReqCard = props => {
             <Text fontWeight={600} fontSize={'2xl'}>
               {riderName}
             </Text>
-          </GridItem>
-          <GridItem
+          </Box>
+          <Box
             w="100%"
             bgColor={'orange.200'}
             textAlign={'center'}
@@ -92,16 +108,16 @@ const ReqCard = props => {
             <Text fontWeight={600} fontSize={'2xl'}>
               {riderData.UID}
             </Text>
-          </GridItem>
+          </Box>
 
-          <GridItem w="100%" textAlign={'center'}>
+          <Box w="100%" textAlign={'center'}>
             <Text fontWeight={'bold'}>Rider Rating:</Text>
             {riderStar} stars
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
+          </Box>
+          <Box w="100%" textAlign={'center'}>
             <Text fontSize={'2xl'}>{riderType}</Text>
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
+          </Box>
+          <Box w="100%" textAlign={'center'}>
             {status == 'pending' ? (
               <Box>
                 <Button onClick={acceptReq}>Accept</Button>
@@ -117,21 +133,16 @@ const ReqCard = props => {
                 </Text>
                 {status == 'accepted' ? (
                   <Box mt={'10px'}>
-                    <Button>Call</Button>
-                    <Button ml={'1rem'}>Email</Button>
+                    <Button onClick={callNum}>Call</Button>
+                    <Button onClick={callEmail} ml={'1rem'}>
+                      Email
+                    </Button>
                   </Box>
                 ) : null}
               </Box>
             )}
-          </GridItem>
-        </Grid>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+          </Box>
+        </SimpleGrid>
       </Card>
     </FadeInUp>
   );

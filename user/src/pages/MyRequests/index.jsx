@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/User/Navbar';
-import { Text, ChakraProvider, theme } from '@chakra-ui/react';
+import { Box, Text, ChakraProvider, theme } from '@chakra-ui/react';
 import RideCard from '../../components/User/MyRequests';
 
 const RidesSearch = () => {
@@ -26,19 +26,25 @@ const RidesSearch = () => {
     <ChakraProvider theme={theme}>
       <Navbar />
 
-      <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
-        My Requests Status
-      </Text>
+      <Box align={'center'}>
+        <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
+          My Requests Status
+        </Text>
+        {myRequests.map(res => (
+          <RideCard
+            key={`${res.ride_id}-${res.publisher_id}`}
+            uid={parseInt(localStorage.getItem('UID'))}
+            rideID={res.ride_id}
+            pid={res.publisher_id}
+            requestStatus={res.request_status}
+          />
+        ))}
+      </Box>
       <br />
-      {myRequests.map(res => (
-        <RideCard
-          key={`${res.ride_id}-${res.publisher_id}`}
-          uid={parseInt(localStorage.getItem('UID'))}
-          rideID={res.ride_id}
-          pid={res.publisher_id}
-          requestStatus={res.request_status}
-        />
-      ))}
+      <br />
+      <br />
+      <br />
+      <br />
     </ChakraProvider>
   );
 };
