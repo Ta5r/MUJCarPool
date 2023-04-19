@@ -1,8 +1,7 @@
 import React from 'react';
 import Card from '../../layouts/Card';
-import { Link, Text, Button } from '@chakra-ui/react';
+import { Text } from '@chakra-ui/react';
 import { Grid, GridItem } from '@chakra-ui/react';
-import ModalBox from '../../layouts/ModalBox';
 import FadeInUp from '../../Animation/FadeInUp';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -16,10 +15,6 @@ const RideCard = props => {
     pending: 'orange.200',
     accepted: 'green.200',
     rejected: 'red.200',
-  };
-
-  const requestRide = async () => {
-    console.log(statusColors[requestStatus]);
   };
 
   useEffect(() => {
@@ -88,8 +83,8 @@ const RideCard = props => {
             </Text>
           </GridItem>
           <GridItem w="100%" textAlign={'center'}>
-          <Text fontWeight={600} fontSize={'3xl'}>
-            {rideDetails.doj}
+            <Text fontWeight={600} fontSize={'3xl'}>
+              {rideDetails.doj}
             </Text>
           </GridItem>
           <GridItem w="100%" textAlign={'center'}>
@@ -97,12 +92,6 @@ const RideCard = props => {
             <br />
             Rs. {rideDetails.price}
           </GridItem>
-          {/* <GridItem w="100%" textAlign={'center'}>
-            <Text fontSize={'lg'}>
-              <b>Ride by</b> <br />
-              {`${publisherDetail.fname} ${publisherDetail.lname}`}
-            </Text>
-          </GridItem> */}
         </Grid>
         <br />
         <br />
