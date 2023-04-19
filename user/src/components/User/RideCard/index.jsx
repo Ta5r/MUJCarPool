@@ -1,11 +1,11 @@
 import React from 'react';
 import Card from '../../layouts/Card';
-import { Link, Text, Button } from '@chakra-ui/react';
+import { Text, Button } from '@chakra-ui/react';
 import { Grid, GridItem } from '@chakra-ui/react';
 import ModalBox from '../../layouts/ModalBox';
 import FadeInUp from '../../Animation/FadeInUp';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const RideCard = props => {
   const from = props.from;
