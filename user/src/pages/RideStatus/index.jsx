@@ -90,9 +90,7 @@ const RideStatus = () => {
                 requesteeID={res.requestee_id}
                 status={res.request_status}
               />
-            ) : (
-              <Box align={'center'}>Nothing to Show</Box>
-            )
+            ) : null            
           )}
         </Box>
       </Box>

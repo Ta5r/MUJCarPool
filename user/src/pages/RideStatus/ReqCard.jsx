@@ -33,6 +33,7 @@ const ReqCard = props => {
   else statusColor = 'red.500';
 
   const acceptReq = async () => {
+    document.getElementById('rjct_btn').disabled = true;
     try {
       const d = await axios.put(
         `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests/${rideID}`,
@@ -44,9 +45,10 @@ const ReqCard = props => {
     console.log('accept request');
     setTimeout(() => {
       window.location.reload();
-    }, 500);
+    }, 200);
   };
   const rejectReq = async () => {
+    document.getElementById('acpt_btn').disabled = true;
     try {
       const d = await axios.put(
         `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests/${rideID}`,
@@ -58,7 +60,7 @@ const ReqCard = props => {
     console.log('reject request');
     setTimeout(() => {
       window.location.reload();
-    }, 500);
+    }, 200);
   };
 
   const callNum = () => {
@@ -120,8 +122,10 @@ const ReqCard = props => {
           <Box w="100%" textAlign={'center'}>
             {status == 'pending' ? (
               <Box>
-                <Button onClick={acceptReq}>Accept</Button>
-                <Button onClick={rejectReq} ml="1rem">
+                <Button id={'acpt_btn'} onClick={acceptReq}>
+                  Accept
+                </Button>
+                <Button id={'rjct_btn'} onClick={rejectReq} ml="1rem">
                   Reject
                 </Button>
               </Box>
