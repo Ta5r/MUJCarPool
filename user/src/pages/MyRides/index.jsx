@@ -10,7 +10,7 @@ const MyRides = () => {
 
   useEffect(() => {
     try {
-      axios.get(`https://muj-travel-buddy-backend-production.up.railway.app/users/${UID}/rides`).then(response => {
+      axios.get(`https://muj-travel-buddy.onrender.com/users/${UID}/rides`).then(response => {
         setAllRides(response.data);
       });
     } catch (err) {
