@@ -12,7 +12,7 @@ const RidesSearch = () => {
     try {
       axios
         .get(
-          `https://muj-travel-buddy-backend-production.up.railway.app/requests?requestee_id=${UID}`
+          `https://muj-travel-buddy.onrender.com/requests?requestee_id=${UID}`
         )
         .then(response => {
           setMyRequests(response.data);
