@@ -37,7 +37,7 @@ export default function Login() {
     event.preventDefault();
 
     try {
-      let dat = await axios.post('https://muj-travel-buddy-backend-production.up.railway.app/users/login', {
+      let dat = await axios.post('https://muj-travel-buddy.onrender.com/users/login', {
         UID: UID,
         password,
       });
