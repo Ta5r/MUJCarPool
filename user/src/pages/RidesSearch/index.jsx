@@ -33,7 +33,7 @@ const RidesSearch = () => {
     event.preventDefault();
     try {
       let dat = await axios.get(
-        `https://muj-travel-buddy-backend-production.up.railway.app/rides/`,
+        `https://muj-travel-buddy.onrender.com/rides/`,
         {
           params: {
             from_location: from,
