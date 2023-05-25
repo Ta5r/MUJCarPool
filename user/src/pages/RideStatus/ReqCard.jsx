@@ -36,7 +36,7 @@ const ReqCard = props => {
     document.getElementById('rjct_btn').disabled = true;
     try {
       const d = await axios.put(
-        `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests/${rideID}`,
+        `https://muj-travel-buddy.onrender.com/users/${uid}/requests/${rideID}`,
         { action: 'accept', requestee_id: requesteeID }
       );
     } catch (err) {
@@ -51,7 +51,7 @@ const ReqCard = props => {
     document.getElementById('acpt_btn').disabled = true;
     try {
       const d = await axios.put(
-        `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests/${rideID}`,
+        `https://muj-travel-buddy.onrender.com/users/${uid}/requests/${rideID}`,
         { action: 'reject', requestee_id: requesteeID }
       );
     } catch (err) {
