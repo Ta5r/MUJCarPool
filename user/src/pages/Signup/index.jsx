@@ -60,7 +60,8 @@ export default function Signup() {
     console.log(password);
 
     try {
-      let dat = await axios.post('https://muj-travel-buddy-backend-production.up.railway.app/users/register', {
+      let dat = await axios.post('https://muj-travel-buddy.onrender.com/users/register', {
+//       let dat = await axios.post('https://muj-travel-buddy-backend-production.up.railway.app/users/register', {
         UID: AID,
         user_type: userType,
         fname: name,
