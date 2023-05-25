@@ -22,7 +22,7 @@ const RideCard = props => {
     try {
       axios
         .get(
-          `https://muj-travel-buddy-backend-production.up.railway.app/rides/${rideID}`
+          `https://muj-travel-buddy.onrender.com/rides/${rideID}`
         )
         .then(response => {
           setRideDetails(response.data);
