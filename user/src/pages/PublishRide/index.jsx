@@ -63,7 +63,7 @@ export default function PublishRide() {
     event.preventDefault();
     try {
       let dat = await axios.post(
-        `https://muj-travel-buddy-backend-production.up.railway.app/users/${UID}/rides`,
+        `https://muj-travel-buddy.onrender.com/users/${UID}/rides`,
         {
           from_location: from,
           to_location: to,
