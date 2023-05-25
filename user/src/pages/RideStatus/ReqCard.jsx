@@ -14,7 +14,7 @@ const ReqCard = props => {
     try {
       axios
         .get(
-          `https://muj-travel-buddy-backend-production.up.railway.app/users/${requesteeID}`
+          `https://muj-travel-buddy.onrender.com/users/${requesteeID}`
         )
         .then(response => {
           setriderName(response.data.fname);
