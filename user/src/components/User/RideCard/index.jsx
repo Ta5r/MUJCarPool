@@ -21,7 +21,7 @@ const RideCard = props => {
   const requestRide = async () => {
     try {
       const d = await axios.post(
-        `https://muj-travel-buddy-backend-production.up.railway.app/users/${uid}/requests`,
+        `https://muj-travel-buddy.onrender.com/users/${uid}/requests`,
         { publisher_id: pid, ride_id: rideID }
       );
       setMsg('Ride Requested');
