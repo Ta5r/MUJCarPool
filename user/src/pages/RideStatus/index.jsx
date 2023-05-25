@@ -13,7 +13,7 @@ const RideStatus = () => {
   useEffect(async () => {
     try {
       let dat = await axios.get(
-        `https://muj-travel-buddy-backend-production.up.railway.app/rides/${slug}/requests/`
+        `https://muj-travel-buddy.onrender.com/rides/${slug}/requests/`
       );
       setReqs(dat.data);
     } catch (err) {
@@ -23,7 +23,7 @@ const RideStatus = () => {
     try {
       axios
         .get(
-          `https://muj-travel-buddy-backend-production.up.railway.app/rides/${slug}`
+          `https://muj-travel-buddy.onrender.com/rides/${slug}`
         )
         .then(response => {
           setRideDetails(response.data);
