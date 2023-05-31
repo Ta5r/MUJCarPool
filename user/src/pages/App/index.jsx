@@ -70,7 +70,7 @@ function App() {
               objectFit={'cover'}
 //               h="100vh"
               // w="50vw"
-            h={['50vh', '65vh', '100vh', '100vh']}
+            h={['70vh', '80vh', '100vh', '100vh']}
             width={[
               '100vw', // 0-30em
               '100vw', // 30em-48em
