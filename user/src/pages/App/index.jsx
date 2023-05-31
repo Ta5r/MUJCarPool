@@ -11,6 +11,7 @@ import {
   theme,
 } from '@chakra-ui/react';
 import FadeInUp from '../../components/Animation/FadeInUp';
+import Footer from './components/layouts/Footer';
 function App() {
   return (
     <ChakraProvider theme={theme}>
@@ -76,6 +77,7 @@ function App() {
           </Flex>
         </Stack>
       </FadeInUp>
+      <Footer />
     </ChakraProvider>
   );
 }
