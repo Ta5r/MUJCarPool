@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import App from './pages/App';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Footer from './components/layouts/Footer';
+// import Footer from './components/layouts/Footer';
 import PublishRide from './pages/PublishRide';
 import UserDashBoard from './pages/UserDashBoard';
 import RidesSearch from './pages/RidesSearch';
@@ -60,7 +60,7 @@ const routing = (
         />
       </Routes>
     </div>
-    <Footer />
+//     <Footer />
   </Router>
 );
 
