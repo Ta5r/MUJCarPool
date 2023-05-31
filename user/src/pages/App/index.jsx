@@ -11,7 +11,7 @@ import {
   theme,
 } from '@chakra-ui/react';
 import FadeInUp from '../../components/Animation/FadeInUp';
-import Footer from './components/layouts/Footer';
+import Footer from '../../components/layouts/Footer';
 function App() {
   return (
     <ChakraProvider theme={theme}>
