@@ -53,7 +53,7 @@ export default function Footer() {
         bottom={0}
         left={0}
         right={0}
-        position={'fixed'}
+        position={'absolute'}
       >
         <Container
           as={Stack}
