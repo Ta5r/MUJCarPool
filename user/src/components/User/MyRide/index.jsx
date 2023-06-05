@@ -1,44 +1,26 @@
 import React from 'react';
-import { Grid,Button, GridItem,Text, } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Text,
+  SimpleGrid,
+} from '@chakra-ui/react';
 import Card from '../../layouts/Card';
-import ModalBox from '../../layouts/ModalBox';
 import FadeInUp from '../../Animation/FadeInUp';
-import { useState, useEffect } from 'react';
-import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 
-const MyRide = props => {
-  const from = props.from;
-  const to = props.to;
-  const doj = props.doj;
-  const price = props.price;
-  const nop = props.nop;
-  const UID = props.UID;
-  const rideID = props.rideID;
+export const MyRide = ({ from, to, nop, price, rideID, doj, UID }) => {
   var color = 'white';
   var statusColor = 'orange.200';
 
-  const RideID = props.rideID;
-  const [reqs, setReqs] = useState();
+  const navigate = useNavigate();
 
-  useEffect(async () => {
-    try {
-      let dat = await axios.get(
-        `http://localhost:8000/ride/request/show/${RideID}`
-      );
-      console.log('==================================');
-      console.log(dat.data);
-      setReqs(dat.data);
-      console.log('==================================');
-    } catch (err) {
-      console.log('Error occured ');
-      console.log(err);
-    }
-  }, []);
-  console.log('11111111111111111111111111111111111111111');
-  console.log(reqs);
-  console.log('11111111111111111111111111111111111111111');
-
-  const checkPassengers = async () => {};
+  const redirectReq = async () => {
+    console.log(rideID);
+    setTimeout(() => {
+      navigate('/user/dashboard/ridestatus/' + rideID);
+    }, 1000);
+  };
 
   return (
     <FadeInUp>
@@ -46,16 +28,16 @@ const MyRide = props => {
         py="3rem"
         my="2rem"
         px="2rem"
-        mx="4rem"
-        width="90vw"
+        mx={['1rem', '2rem', '3rem', '4rem']}
+        width="80vw"
         borderRadius="16px"
         boxShadow=" 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
-        height={{ sm: '200px' }}
+        height={{ xs: '400px', sm: '300px', md: '150px', lg:'150px' }}
         bg={color}
         position="relative"
       >
-        <Grid templateColumns="repeat(6, 1fr)" gap={3}>
-          <GridItem
+        <SimpleGrid columns={[1,2, 3, 4, 5, 6]} spacing="40px">
+          <Box
             w="100%"
             bgColor={statusColor}
             textAlign={'center'}
@@ -63,11 +45,11 @@ const MyRide = props => {
             h={'60px'}
             borderRadius={'50px'}
           >
-            <Text fontWeight={600} fontSize={'3xl'}>
+            <Text fontWeight={600} fontSize={['2xl','3xl','4xl']}>
               {from}
             </Text>
-          </GridItem>
-          <GridItem
+          </Box>
+          <Box
             w="100%"
             bgColor={statusColor}
             textAlign={'center'}
@@ -75,29 +57,29 @@ const MyRide = props => {
             h={'60px'}
             borderRadius={'50px'}
           >
-            <Text fontWeight={600} fontSize={'3xl'}>
+            <Text fontWeight={600} fontSize={['2xl','3xl','4xl']}>
               {to}
             </Text>
-          </GridItem>
-
-          <GridItem w="100%" textAlign={'center'}>
+          </Box>
+          <Box align="center">
             <Text fontWeight={'bold'}>Date of Journey:</Text>
             {doj}
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
-            <Text fontSize={'2xl'}>{nop} Passengers</Text>
-          </GridItem>
-          <GridItem w="100%" textAlign={'center'}>
+          </Box>
+          <Box align="center">
+            <Text fontSize={'xl'} fontWeight={'bold'}>
+              {nop}
+            </Text>
+            <Text>Seats</Text>
+          </Box>
+          <Box align="center">
             <b>Price</b>
             <br />
             Rs. {price}
-          </GridItem>
-          <GridItem w="100%">
-            <Button>Details</Button>
-            {/* <ModalBox rideID={rideID} UID={UID}/> */}
-            {/* {reqs.map(response=><Text>{response.RequestName}</Text>)} */}
-          </GridItem>
-        </Grid>
+          </Box>
+          <Box align="center">
+            <Button onClick={redirectReq}>Details</Button>
+          </Box>
+        </SimpleGrid>
         <br />
         <br />
       </Card>

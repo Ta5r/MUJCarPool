@@ -35,27 +35,24 @@ export default function Login() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    console.log(UID);
-    console.log(password);
 
     try {
-      let dat = await axios.post('http://localhost:8000/user/login', {
-        UID:UID,
+      let dat = await axios.post('https://muj-travel-buddy.onrender.com/users/login', {
+        UID: UID,
         password,
       });
       console.log('data : ' + dat.data);
+      console.log("----");
       console.log(dat.data.user);
-      const stringToken = '' + dat.data.token;
-      console.log('String Token : ' + stringToken);
+      console.log("----");
       setToken(dat.data.token);
-      console.log(dat.data.token);
-      console.log('status : ' + dat.status);
       if (dat.status === 200) {
         setmsg('SUCCEFULL SIGNIN !');
         setStatus('Signin successful');
+      localStorage.setItem('UID', UID);
         setTimeout(() => {
           navigate('/user/dashboard');
-        }, 2000);
+        }, 1000);
       } else {
         setStatus('Please Try Again');
         setmsg('INCORRECT CREDENTIALS');
@@ -64,8 +61,8 @@ export default function Login() {
       setStatus('Please Try Again');
       setTimeout(() => {
         setStatus('Sign in');
-        setmsg('Please fill in your credentials')
-      }, 3000)
+        setmsg('Please fill in your credentials');
+      }, 3000);
       console.log(error);
     }
   };
@@ -97,7 +94,7 @@ export default function Login() {
                   <FormControl id="UID">
                     <FormLabel>Registration Number</FormLabel>
                     <Input
-                    placeholder={"Registration Number"}
+                      placeholder={'Registration Number'}
                       id="UID"
                       type="text"
                       value={UID}
@@ -107,7 +104,7 @@ export default function Login() {
                   <FormControl id="password">
                     <FormLabel>Password</FormLabel>
                     <Input
-                      placeholder={"Password"}
+                      placeholder={'Password'}
                       type="password"
                       id="password"
                       value={password}

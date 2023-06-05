@@ -1,99 +1,154 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/User/Navbar';
-import { Button, Text, ChakraProvider, theme } from '@chakra-ui/react';
 import RideCard from '../../components/User/RideCard';
-
-const RidesSearch = props => {
-  const eid = props.uid;
-  console.log('eid from main component --> ' + eid);
-
-  const [S_lname, setlname] = useState('');
-  const [S_email, setemail] = useState('');
-  const [S_phone, setphone] = useState('');
-  const [UID, setUID] = useState('');
-  const [fname, setName] = useState('');
+import {
+  ChakraProvider,
+  Text,
+  theme,
+  Box,
+  FormControl,
+  FormLabel,
+  Stack,
+  Button,
+  Input,
+  Heading,
+  useColorModeValue,
+  HStack,
+} from '@chakra-ui/react';
+const RidesSearch = () => {
   const [allRides, setAllRides] = useState([]);
 
-  useEffect(() => {
-    try {
-      fetch('/user/dashboard/', {
-        method: 'GET',
-        headers: {
-          token: localStorage.getItem('tokenID'),
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      }).then(response => {
-        response.json().then(response => {
-          console.log(response);
-          setUID(response.UID);
-          setName(response.fname);
-          setlname(response.lname);
-          setemail(response.email);
-          setphone(response.phone);
-        });
-      });
-    } catch (err) {
-      console.log('Error occured ');
-      console.log(err);
-    }
-  }, []);
-  console.log('UID from main component --> ' + UID);
-  console.log(fname);
+  const [from, setFrom] = useState('');
+  const [to, setTo] = useState('');
+  const [doj, setDoj] = useState('');
+  const [price, setPrice] = useState('');
+  const [msg, setmsg] = useState('Please fill the following details');
 
-  const handleLoad = () => {
-    console.log('Load request');
+  const handleFromChange = e => setFrom(e.target.value);
+  const handleToChange = e => setTo(e.target.value);
+  const handleDojChange = e => setDoj(e.target.value);
+  const handlePriceChange = e => setPrice(e.target.value);
+  const handleSubmit = async event => {
+    event.preventDefault();
     try {
-      axios.get('http://localhost:8000/rides/all/').then(response => {
-        console.log(response);
-        setAllRides(response.data);
-      });
+      let dat = await axios.get(
+        `https://muj-travel-buddy.onrender.com/rides/`,
+        {
+          params: {
+            from_location: from,
+            to_location: to,
+            doj: doj,
+            price: price,
+          },
+        }
+      );
+      setAllRides(dat.data);
+      if (dat.status == 200) {
+        setmsg('Scroll to view rides');
+      } else {
+        setmsg("Couldn't find rides");
+      }
     } catch (err) {
-      console.log('Error occured ');
       console.log(err);
     }
   };
 
   return (
     <ChakraProvider theme={theme}>
-      <Navbar
-        eid={UID}
-        name={fname}
-        lname={S_lname}
-        email={S_email}
-        phone={S_phone}
-      />
+      <Navbar />
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={2} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'}> Search Rides</Heading>
+          <Text fontSize={'lg'} color={'gray.600'}>
+            {msg}
+          </Text>
+        </Stack>
+        <Box
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
+          p={8}
+        >
+          <Stack spacing={4}>
+            <form onSubmit={handleSubmit}>
+              <FormControl id="publish_ride">
+                <HStack>
+                  <FormLabel>From</FormLabel>
+                  <Input
+                    placeholder={'Enter a pick-up point'}
+                    id="from"
+                    type="text"
+                    onChange={handleFromChange}
+                  />
 
-      <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
-        Browse Ongoing Rides
-      </Text>
-      {allRides.map(res =>
-        res.PublisherID != UID ? (
-          <RideCard
-            myName = {fname}
-            uid={UID}
-            to={res.to}
-            from={res.from}
-            doj={res.doj}
-            nop={res.no_of_pass}
-            price={res.price}
-            rideID={res._id}
-            pid={res.PublisherID}
-          />
-        ) : null
-      )}
-
-      <Button
-        bgcolor="red"
-        mx="10rem"
-        my={'1rem'}
-        mb={'7rem'}
-        onClick={handleLoad}
-      >
-        Show All Rides
-      </Button>
+                  <FormLabel>To</FormLabel>
+                  <Input
+                    placeholder={'Enter a drop point'}
+                    id="to"
+                    type="text"
+                    onChange={handleToChange}
+                  />
+                </HStack>
+                <br />
+                <HStack>
+                  <FormLabel>Date of Journey</FormLabel>
+                  <Input
+                    placeholder={'Date of Journey'}
+                    id="doj"
+                    type="date"
+                    onChange={handleDojChange}
+                  />
+                </HStack>
+                <br />
+                <HStack>
+                  <FormLabel>Price per head</FormLabel>
+                  <Input
+                    placeholder={'Price per head'}
+                    id="price"
+                    type="text"
+                    onChange={handlePriceChange}
+                  />
+                </HStack>
+              </FormControl>
+              <br />
+              <Stack spacing={10}>
+                <Button
+                  bg={'blue.400'}
+                  color={'white'}
+                  _hover={{
+                    bg: 'blue.500',
+                  }}
+                  my={'1rem'}
+                  type="submit"
+                >
+                  Search Ride
+                </Button>
+              </Stack>
+            </form>
+            <Stack spacing={10}></Stack>
+          </Stack>
+        </Box>
+      </Stack>
+      <Box align={'center'}>
+        {allRides.map(res =>
+          res.publisher_id !== parseInt(localStorage.getItem('UID')) ? (
+            <RideCard
+              key={res.id}
+              uid={parseInt(localStorage.getItem('UID'))}
+              to={res.to_location}
+              from={res.from_location}
+              doj={res.doj}
+              nop={res.passenger_count}
+              price={res.price}
+              rideID={res.id}
+              pid={res.publisher_id}
+              publisher={res.publisher}
+            />
+          ) : null
+        )}
+      </Box>
+      <br />
       <br />
     </ChakraProvider>
   );

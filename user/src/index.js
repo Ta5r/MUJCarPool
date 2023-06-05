@@ -1,13 +1,16 @@
-import React, { StrictMode } from 'react';
+import React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import App from './pages/App';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Footer from './components/layouts/Footer';
 import PublishRide from './pages/PublishRide';
 import UserDashBoard from './pages/UserDashBoard';
 import RidesSearch from './pages/RidesSearch';
+import RideStatus from './pages/RideStatus';
+import MyRequests from './pages/MyRequests';
+import Profile from './pages/Profile';
+import Payments from './pages/Payments';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
@@ -34,9 +37,28 @@ const routing = (
           component={RidesSearch}
           element={<RidesSearch />}
         />
+        <Route
+          path="/user/dashboard/myrequests"
+          component={MyRequests}
+          element={<MyRequests />}
+        />
+        <Route
+          path="/user/dashboard/ridestatus/:slug"
+          component={RideStatus}
+          element={<RideStatus />}
+        />
+        <Route
+          path="/user/profile"
+          component={Profile}
+          element={<Profile />}
+        />
+        <Route
+          path="/user/payments"
+          component={Payments}
+          element={<Payments />}
+        />
       </Routes>
     </div>
-    <Footer />
   </Router>
 );
 

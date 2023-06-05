@@ -203,35 +203,38 @@ router.get("/ride/request/show/:RideID/", async (req, res) => {
   }
 });
 
-router.post("/ride/request/add/:RideID/:RequestID/:RequestName", async (req, res) => {
-  const RideID = req.params.RideID;
-  const RequestID = req.params.RequestID;
-  const RequestName = req.params.RequestName;
+router.post(
+  "/ride/request/add/:RideID/:RequestID/:RequestName",
+  async (req, res) => {
+    const RideID = req.params.RideID;
+    const RequestID = req.params.RequestID;
+    const RequestName = req.params.RequestName;
 
-  console.log(RideID);
-  console.log(RequestID);
-  console.log(RequestName);
-  try {
-    const test_duplicate = await RideRequest.findOne({
-      $and: [{ RideID }, { RequestID }],
-    });
-    if (test_duplicate) {
-      console.log("_____________________________________");
-      console.log(test_duplicate);
-      console.log("_____________________________________");
-      res.status(400).json({ message: "ALREADY REQUESTED" });
-    } else {
-      const new_request = new RideRequest({
-        RideID,
-        RequestID,
-        RequestName
+    console.log(RideID);
+    console.log(RequestID);
+    console.log(RequestName);
+    try {
+      const test_duplicate = await RideRequest.findOne({
+        $and: [{ RideID }, { RequestID }],
       });
-      await new_request.save();
-      res.status(200).json({ message: "RIDE REQUESTED" });
+      if (test_duplicate) {
+        console.log("_____________________________________");
+        console.log(test_duplicate);
+        console.log("_____________________________________");
+        res.status(400).json({ message: "ALREADY REQUESTED" });
+      } else {
+        const new_request = new RideRequest({
+          RideID,
+          RequestID,
+          RequestName,
+        });
+        await new_request.save();
+        res.status(200).json({ message: "RIDE REQUESTED" });
+      }
+    } catch (err) {
+      console.log(err);
     }
-  } catch (err) {
-    console.log(err);
   }
-});
+);
 
 export default router;

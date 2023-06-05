@@ -11,6 +11,7 @@ import {
   theme,
 } from '@chakra-ui/react';
 import FadeInUp from '../../components/Animation/FadeInUp';
+import Footer from '../../components/layouts/Footer';
 function App() {
   return (
     <ChakraProvider theme={theme}>
@@ -67,8 +68,15 @@ function App() {
             <Image
               alt={'MUJ-IMAGE'}
               objectFit={'cover'}
-              h="100vh"
-              w="50vw"
+//               h="100vh"
+              // w="50vw"
+            h={['70vh', '80vh', '100vh', '100vh']}
+            width={[
+              '100vw', // 0-30em
+              '100vw', // 30em-48em
+              '50vw', // 48em-62em
+              '50vw', // 62em+
+            ]}
               src={
                 "https://mujslcm.jaipur.manipal.edu:122/keen/themes/keen/theme/demo1/dist/assets/media/misc/bg_1.jpg"
               }
@@ -76,6 +84,7 @@ function App() {
           </Flex>
         </Stack>
       </FadeInUp>
+      <Footer />
     </ChakraProvider>
   );
 }
