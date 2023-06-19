@@ -1,4 +1,4 @@
-# MUJ_Car_Pool
+# MUJ Travel Buddy
 
-ToDO : 
--> Make Filter / Search Rides
+The one stop app to find, publish and share rides and build a carpooling network.
+
