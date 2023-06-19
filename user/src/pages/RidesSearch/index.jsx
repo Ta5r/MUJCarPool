@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import Navbar from '../../components/User/Navbar';
 import RideCard from '../../components/User/RideCard';
+import LoadingCard from '../../components/layouts/LoadingCard';
 import {
   ChakraProvider,
   Text,
@@ -24,6 +25,7 @@ const RidesSearch = () => {
   const [doj, setDoj] = useState('');
   const [price, setPrice] = useState('');
   const [msg, setmsg] = useState('Please fill the following details');
+  const [loading, setLoad] = useState(false);
 
   const handleFromChange = e => setFrom(e.target.value);
   const handleToChange = e => setTo(e.target.value);
@@ -32,6 +34,7 @@ const RidesSearch = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
+      setLoad(true);
       let dat = await axios.get(
         `https://muj-travel-buddy.onrender.com/rides/`,
         {
@@ -44,7 +47,8 @@ const RidesSearch = () => {
         }
       );
       setAllRides(dat.data);
-      if (dat.status == 200) {
+      if (dat.status === 200) {
+        setLoad(false);
         setmsg('Scroll to view rides');
       } else {
         setmsg("Couldn't find rides");
@@ -131,6 +135,9 @@ const RidesSearch = () => {
         </Box>
       </Stack>
       <Box align={'center'}>
+      {(loading===true)?
+      <LoadingCard/>
+      :null}
         {allRides.map(res =>
           res.publisher_id !== parseInt(localStorage.getItem('UID')) ? (
             <RideCard
