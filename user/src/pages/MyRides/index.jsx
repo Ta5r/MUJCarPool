@@ -33,7 +33,7 @@ const MyRides = () => {
 
       {(loading===true)?
       <LoadingCard/>
-      :<p>Looks like you have not published any rides.</p>}
+      :null}
 
       {allRides.map(res => {
         return (
@@ -48,7 +48,12 @@ const MyRides = () => {
           nop={res.passenger_count}
           />
           );
-        })}
+        })
+        }
+        {
+          (allRides.length===0)?
+        <p>Oops! Looks like you have not published any rides.</p>:null
+        }
 
         </Box>
       <br />

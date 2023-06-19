@@ -5,7 +5,7 @@ import { Box, Text, ChakraProvider, theme } from '@chakra-ui/react';
 import RideCard from '../../components/User/MyRequests';
 import LoadingCard from '../../components/layouts/LoadingCard';
 
-const RidesSearch = () => {
+const MyRequestRides = () => {
   const [myRequests, setMyRequests] = useState([]);
   const UID = parseInt(localStorage.getItem('UID'));
   const [loading, setLoad] = useState(false);
@@ -46,6 +46,10 @@ const RidesSearch = () => {
             requestStatus={res.request_status}
           />
         ))}
+        {
+          (myRequests.length===0)?
+        <p>You have not requested for any rides.</p>:null
+        }
       </Box>
       <br />
       <br />
@@ -56,4 +60,4 @@ const RidesSearch = () => {
   );
 };
 
-export default RidesSearch;
+export default MyRequestRides;
