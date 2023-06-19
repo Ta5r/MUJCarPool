@@ -3,14 +3,18 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/User/Navbar';
 import { Text, ChakraProvider,Box, theme } from '@chakra-ui/react';
 import MyRide from '../../components/User/MyRide';
+import LoadingCard from '../../components/layouts/LoadingCard';
 
 const MyRides = () => {
   const [allRides, setAllRides] = useState([]);
   const UID = localStorage.getItem('UID');
+  const [loading, setLoad] = useState(false);
 
   useEffect(() => {
     try {
+      setLoad(true);
       axios.get(`https://muj-travel-buddy.onrender.com/users/${UID}/rides`).then(response => {
+        setLoad(false);  
         setAllRides(response.data);
       });
     } catch (err) {
@@ -27,6 +31,10 @@ const MyRides = () => {
         My Ongoing Rides
       </Text>
 
+      {(loading===true)?
+      <LoadingCard/>
+      :null}
+
       {allRides.map(res => {
         return (
           <MyRide
@@ -40,7 +48,12 @@ const MyRides = () => {
           nop={res.passenger_count}
           />
           );
-        })}
+        })
+        }
+        {
+          (allRides.length===0)?
+        <p>Oops! Looks like you have not published any rides.</p>:null
+        }
 
         </Box>
       <br />
