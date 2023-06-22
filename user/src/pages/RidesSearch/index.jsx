@@ -61,7 +61,7 @@ const RidesSearch = () => {
   return (
     <ChakraProvider theme={theme}>
       <Navbar />
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={2} px={6}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={2} px={6} minW={'340px'}>
         <Stack align={'center'}>
           <Heading fontSize={'4xl'}> Search Rides</Heading>
           <Text fontSize={'lg'} color={'gray.600'}>
@@ -135,9 +135,7 @@ const RidesSearch = () => {
         </Box>
       </Stack>
       <Box align={'center'}>
-      {(loading===true)?
-      <LoadingCard/>
-      :null}
+        {loading === true ? <LoadingCard /> : null}
         {allRides.map(res =>
           res.publisher_id !== parseInt(localStorage.getItem('UID')) ? (
             <RideCard
