@@ -30,13 +30,11 @@ const MyRequestRides = () => {
     <ChakraProvider theme={theme}>
       <Navbar />
 
-      <Box align={'center'}>
+      <Box align={'center'} minW={'340px'}>
         <Text fontWeight={'bold'} fontSize="38px" my="4rem" mx="5rem">
           My Requests Status
         </Text>
-        {(loading===true)?
-      <LoadingCard/>
-      :null}
+        {loading === true ? <LoadingCard /> : null}
         {myRequests.map(res => (
           <RideCard
             key={`${res.ride_id}-${res.publisher_id}`}
@@ -46,10 +44,9 @@ const MyRequestRides = () => {
             requestStatus={res.request_status}
           />
         ))}
-        {
-          (myRequests.length===0)?
-        <p>You have not requested for any rides.</p>:null
-        }
+        {myRequests.length === 0 ? (
+          <p>You have not requested for any rides.</p>
+        ) : null}
       </Box>
       <br />
       <br />

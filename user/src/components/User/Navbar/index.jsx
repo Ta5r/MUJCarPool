@@ -50,7 +50,7 @@ export default function Navbar() {
 
   return (
     <ChakraProvider theme={theme}>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Box bg={useColorModeValue('#', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
