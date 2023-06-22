@@ -22,7 +22,7 @@ const RideCard = props => {
   const pid = props.pid;
   const uid = props.uid;
   const publisherDetail = props.publisher;
-  const [msg, setMsg] = useState('Request Ride');
+  const [msg, setMsg] = useState('Request');
 
   const requestRide = async () => {
     try {
@@ -30,7 +30,7 @@ const RideCard = props => {
         `https://muj-travel-buddy.onrender.com/users/${uid}/requests`,
         { publisher_id: pid, ride_id: rideID }
       );
-      setMsg('Ride Requested');
+      setMsg('Requested');
     } catch (err) {
       alert(`Error: ${err}`);
     }
@@ -89,7 +89,7 @@ const RideCard = props => {
         <Flex flexDirection={'column'} justifyContent={'space-around'}>
           <Box w="100%">
             <Flex>
-              <TimeIcon mt={'4px'} px={'1px'} mx={'4px'} />
+              <TimeIcon mt={['4px', '8px']} mx={'4px'} />
               <Text
                 color={'#1e1e1e'}
                 fontSize={['md', 'md', 'lg', 'xl']}
