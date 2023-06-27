@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Navbar from '../../components/User/Navbar';
 import RideCard from '../../components/User/RideCard';
 import LoadingCard from '../../components/layouts/LoadingCard';
+import socketIO from "socket.io-client";
 import {
   ChakraProvider,
   Text,
@@ -17,6 +18,23 @@ import {
   useColorModeValue,
   HStack,
 } from '@chakra-ui/react';
+
+const connection_UID = localStorage.getItem('UID');
+var socket = socketIO.connect("http://localhost:5000");
+socket.on('connect',function(){ 
+  socket.emit('ehlo', connection_UID);
+  if(connection_UID=='1234567')
+    {
+      socket.emit("testevent",12345678);
+      console.log("NOTIFICATION SENT");
+    }
+});
+
+socket.on('new_notif', function(){
+  console.log("YIPPEE NEW NOTIFICATION recieved ~!!!!");
+});
+
+  
 const RidesSearch = () => {
   const [allRides, setAllRides] = useState([]);
 
@@ -149,6 +167,7 @@ const RidesSearch = () => {
               rideID={res.id}
               pid={res.publisher_id}
               publisher={res.publisher}
+              socket={socket}
             />
           ) : null
         )}

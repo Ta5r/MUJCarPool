@@ -23,6 +23,9 @@ const RideCard = props => {
   const uid = props.uid;
   const publisherDetail = props.publisher;
   const [msg, setMsg] = useState('Request');
+  const socket = props.socket;
+  console.log(socket);
+  console.log("socket id : "+socket.id);
 
   const requestRide = async () => {
     try {
@@ -31,6 +34,7 @@ const RideCard = props => {
         { publisher_id: pid, ride_id: rideID }
       );
       setMsg('Requested');
+      socket.emit("testevent",pid);
     } catch (err) {
       alert(`Error: ${err}`);
     }
