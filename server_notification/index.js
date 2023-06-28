@@ -5,7 +5,8 @@ const http = require('http').Server(app);
 const PORT = 5000;
 const socketIO = require('socket.io')(http, {
     cors: {
-        origin: "http://localhost:3000"
+        // origin: "http://localhost:3000"
+        origin : "https://notifi-travel-buddy.vercel.app/"
     }
 });
 
