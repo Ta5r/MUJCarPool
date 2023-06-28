@@ -22,7 +22,8 @@ import {
 import jwt from 'jwt-decode';
 
 const connection_UID = localStorage.getItem('UID');
-var socket = socketIO.connect("http://localhost:5000");
+// var socket = socketIO.connect("http://localhost:5000");
+var socket = socketIO.connect("https://dep-server-notification.onrender.com");
 socket.on('connect',function(){ 
   socket.emit('ehlo', connection_UID);
 });
