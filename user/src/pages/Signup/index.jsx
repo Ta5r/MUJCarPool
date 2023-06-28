@@ -17,6 +17,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FadeInUp from '../../components/Animation/FadeInUp';
+import { useToast } from '@chakra-ui/react'
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ export default function Signup() {
   const [lname, setLName] = useState('');
   const [stat, setStat] = useState('Register User');
 
+  const toast = useToast();
   const handleAIDChange = e => setAID(e.target.value);
   const handlepasswordChange = e => setPassword(e.target.value);
   const handleCpasswordChange = e => setCpassword(e.target.value);
@@ -76,6 +78,14 @@ export default function Signup() {
         console.log(dat);
         setmsg('Successful Registration');
         setStat('Registered');
+        toast({
+          title: 'Successful Registration.',
+          description: "We've created your account.",
+          status: 'success',
+          duration: 5000,
+          position : 'top-right',
+          isClosable: true,
+        })
         setTimeout(() => {
           setStat('Register User');
         }, 2000);
@@ -83,6 +93,14 @@ export default function Signup() {
       } else {
         setStat('Registration Failed');
         setmsg('Registration Failed');
+        toast({
+          title: 'Registration Failed.',
+          description: "We were unable to create your account.",
+          status: 'error',
+          duration: 5000,
+          position : 'top-right',
+          isClosable: true,
+        })
         setTimeout(() => {
           setStat('Register User');
         }, 2000);
@@ -90,6 +108,14 @@ export default function Signup() {
       console.log('status for admin : ' + dat.status);
     } catch (error) {
       setmsg('Registration Failed');
+      toast({
+        title: 'Registration Failed.',
+        description: "We were unable to create your account.",
+        status: 'error',
+        duration: 5000,
+        position : 'top-right',
+        isClosable: true,
+      })
 
       console.log(error);
     }

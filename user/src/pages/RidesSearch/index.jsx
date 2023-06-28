@@ -4,6 +4,7 @@ import Navbar from '../../components/User/Navbar';
 import RideCard from '../../components/User/RideCard';
 import LoadingCard from '../../components/layouts/LoadingCard';
 import socketIO from "socket.io-client";
+import { useToast } from '@chakra-ui/react';
 import {
   ChakraProvider,
   Text,
@@ -18,32 +19,60 @@ import {
   useColorModeValue,
   HStack,
 } from '@chakra-ui/react';
+import jwt from 'jwt-decode';
 
 const connection_UID = localStorage.getItem('UID');
 var socket = socketIO.connect("http://localhost:5000");
 socket.on('connect',function(){ 
   socket.emit('ehlo', connection_UID);
-  if(connection_UID=='1234567')
-    {
-      socket.emit("testevent",12345678);
-      console.log("NOTIFICATION SENT");
-    }
 });
 
-socket.on('new_notif', function(){
-  console.log("YIPPEE NEW NOTIFICATION recieved ~!!!!");
-});
+
+      var name="";
+      var x = localStorage.getItem('tokenID');
+      if(x){
+        const user = jwt(x);
+        name = user.fname + ' ' + user.lname;
+        
+        console.log("TESTING > Requestee "+name);
+      }
+
 
   
 const RidesSearch = () => {
+  const toast = useToast();
   const [allRides, setAllRides] = useState([]);
-
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [doj, setDoj] = useState('');
   const [price, setPrice] = useState('');
   const [msg, setmsg] = useState('Please fill the following details');
   const [loading, setLoad] = useState(false);
+  const [notif, setNotif] = useState([]);
+  socket.on('new_notif', function(data){
+    console.log("YIPPEE NEW NOTIFICATION recieved ~!!!!");
+    console.log(data);
+    console.log(data.from);
+    console.log(data.on_ride);
+    console.log("YIPPEE NEW NOTIFICATION recieved ~!!!!");
+    setNotif([...notif, 
+      {
+        from_id    : data.fromID, //ID of requestee
+        on_ride_id : data.ride_id, //RIDE_ID
+        ride_from  : data.rideFROM, // ride FROM
+        ride_to    : data.rideTO,  //ride TO
+        requestee: data.requestee //requestee name
+      }
+    ]);
+    toast({
+      title: `${data.rideFROM} -> ${data.rideTO}`,
+      description: `${data.requestee} has requested on ${data.ride_id}`,
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    })
+    console.log(notif);
+  });
 
   const handleFromChange = e => setFrom(e.target.value);
   const handleToChange = e => setTo(e.target.value);

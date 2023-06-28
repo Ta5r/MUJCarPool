@@ -18,6 +18,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import FadeInUp from '../../components/Animation/FadeInUp';
+import { useToast } from '@chakra-ui/react'
 
 export default function Login() {
   const navigate = useNavigate();
@@ -33,9 +34,10 @@ export default function Login() {
     localStorage.setItem('tokenID', token);
   }, [token]);
 
+  const toast = useToast();
   const handleSubmit = async event => {
     event.preventDefault();
-
+    
     try {
       let dat = await axios.post('https://muj-travel-buddy.onrender.com/users/login', {
         UID: UID,
@@ -47,6 +49,14 @@ export default function Login() {
       console.log("----");
       setToken(dat.data.token);
       if (dat.status === 200) {
+        toast({
+          title: 'Successful Signin.',
+          description: "Logged in your account.",
+          status: 'success',
+          duration: 5000,
+          position : 'top-right',
+          isClosable: true,
+        })
         setmsg('SUCCEFULL SIGNIN !');
         setStatus('Signin successful');
       localStorage.setItem('UID', UID);
@@ -54,10 +64,26 @@ export default function Login() {
           navigate('/user/dashboard');
         }, 1000);
       } else {
+        toast({
+          title: 'INCORRECT registration number or password.',
+          description: "Please Try Again.",
+          status: 'warning',
+          duration: 5000,
+          position : 'top-right',
+          isClosable: true,
+        })
         setStatus('Please Try Again');
         setmsg('INCORRECT CREDENTIALS');
       }
     } catch (error) {
+      toast({
+        title: 'Some error occured.',
+        description: "Please try again using valid credentials.",
+        status: 'error',
+        duration: 5000,
+        position : 'top-right',
+        isClosable: true,
+      })
       setStatus('Please Try Again');
       setTimeout(() => {
         setStatus('Sign in');

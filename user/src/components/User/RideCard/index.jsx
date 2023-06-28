@@ -11,6 +11,7 @@ import { Box, Avatar, HStack, VStack, Flex, Spacer } from '@chakra-ui/react';
 import FadeInUp from '../../Animation/FadeInUp';
 import axios from 'axios';
 import { useState } from 'react';
+import jwt from 'jwt-decode';
 
 const RideCard = props => {
   const from = props.from;
@@ -28,13 +29,28 @@ const RideCard = props => {
   console.log("socket id : "+socket.id);
 
   const requestRide = async () => {
+    var requestee_name="";
+    var x = localStorage.getItem('tokenID');
+    if(x){
+      const user = jwt(x);
+      requestee_name = user.fname + ' ' + user.lname;      
+    }
     try {
       const d = await axios.post(
         `https://muj-travel-buddy.onrender.com/users/${uid}/requests`,
         { publisher_id: pid, ride_id: rideID }
       );
       setMsg('Requested');
-      socket.emit("testevent",pid);
+      socket.emit("notify",
+      {
+        to:pid,  //Request to Publisher
+        from_id:uid , //ID of requestee
+        on_ride_id:rideID,  //RIDE_ID
+        ride_from:from, //ride FROM
+        ride_to:to,  //ride TO
+        requestee: requestee_name//requestee name
+      });
+      console.log("NOTIFICATION SENT");
     } catch (err) {
       alert(`Error: ${err}`);
     }

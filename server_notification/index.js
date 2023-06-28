@@ -35,8 +35,15 @@ socketIO.on('connection', (socket) => {
         console.log("DATA "+data)});
 
 
-    socket.on("testevent", data => {
-        socket.to(map1.get(''+data)).emit("new_notif");
+    socket.on("notify", data => {
+        socket.to(map1.get(''+data.to)).emit("new_notif",
+        {
+            fromID  : data.from_id,
+            ride_id : data.on_ride_id,
+            rideFROM : data.ride_from,
+            rideTO : data.ride_to,
+            requestee : data.requestee
+        });
         });
         
     socket.on('disconnect', socket.disconnect);
